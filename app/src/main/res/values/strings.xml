@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">tic-tac-toe</string>
+
+    <!--Labels/Strings used throughout the app-->
+    <string name="lblMenuPlayWild">Play Wild Tic-Tac-Toe</string>
+    <string name="lblMenuPlayRandom">Play Random Tic-Tac-Toe</string>
+    <string name="lblMenuAboutApp">About App</string>
 </resources>

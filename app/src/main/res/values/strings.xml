@@ -5,4 +5,8 @@
     <string name="lblMenuPlayWild">Play Wild Tic-Tac-Toe</string>
     <string name="lblMenuPlayRandom">Play Random Tic-Tac-Toe</string>
     <string name="lblMenuAboutApp">About App</string>
+
+    <!--TODO NEED TO FINISH ABOUT PARAGRAPH-->
+    <string name="textAboutApp">Authors: Han &amp; Brian\n
+    Second Line</string>
 </resources>

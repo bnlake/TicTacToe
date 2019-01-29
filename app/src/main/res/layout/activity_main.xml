@@ -37,7 +37,7 @@
 
                 <!--TODO IMPLEMENT ONCLICKS FOR BUTTONS-->
                 <Button
-                    android:id="@+id/btnMenuPlay"
+                    android:id="@+id/btnMenuPlayWild"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/roundedrectangle"
@@ -49,7 +49,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
-                    android:id="@+id/btnMenuAboutGame"
+                    android:id="@+id/btnMenuPlayRandom"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
@@ -60,7 +60,7 @@
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/btnMenuPlay" />
+                    app:layout_constraintTop_toBottomOf="@id/btnMenuPlayWild" />
 
                 <Button
                     android:id="@+id/btnMenuAboutApp"
@@ -74,7 +74,7 @@
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/btnMenuAboutGame" />
+                    app:layout_constraintTop_toBottomOf="@id/btnMenuPlayRandom" />
 
 
             </android.support.constraint.ConstraintLayout>

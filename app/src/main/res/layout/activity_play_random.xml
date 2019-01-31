@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackgroundLight"
+    android:padding="20dp">
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableRow
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@color/colorBackgroundDark"
+                android:padding="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/gamepiece_placeholder" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@color/colorBackgroundDark"
+                android:padding="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/gamepiece_placeholder" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@color/colorBackgroundDark"
+                android:padding="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/gamepiece_placeholder" />
+        </TableRow>
+
+        <TableRow
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@color/colorBackgroundDark"
+                android:padding="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/gamepiece_placeholder" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@color/colorBackgroundDark"
+                android:padding="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/gamepiece_placeholder" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@color/colorBackgroundDark"
+                android:padding="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/gamepiece_placeholder" />
+        </TableRow>
+
+        <TableRow
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@color/colorBackgroundDark"
+                android:padding="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/gamepiece_placeholder" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@color/colorBackgroundDark"
+                android:padding="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/gamepiece_placeholder" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@color/colorBackgroundDark"
+                android:padding="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/gamepiece_placeholder" />
+        </TableRow>
+
+        <TableRow>
+
+        </TableRow>
+    </TableLayout>
+</android.support.constraint.ConstraintLayout>

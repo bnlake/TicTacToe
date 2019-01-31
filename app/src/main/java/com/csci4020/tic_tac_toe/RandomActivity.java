@@ -12,9 +12,7 @@ public class RandomActivity extends Activity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_random);
-
-
+        setContentView(R.layout.activity_play_random);
     }
 
     @Override

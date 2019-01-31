@@ -13,7 +13,7 @@
         <TableRow
             android:layout_height="0dp"
             android:layout_weight="1">
-
+            <!--TODO USE VECTOR ASSET FOR PLACEHOLDERS, SCALES WEIRD WITH AN XML SHAPE-->
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -22,7 +22,7 @@
                 android:background="@color/colorBackgroundDark"
                 android:padding="10dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/gamepiece_placeholder" />
+                android:src="@drawable/ic_gamepiece_x_blue" />
 
             <ImageView
                 android:layout_width="0dp"

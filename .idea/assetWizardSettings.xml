@@ -14,11 +14,11 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="height" value="565" />
-                            <entry key="outputName" value="ic_logoabout" />
+                            <entry key="height" value="200" />
+                            <entry key="outputName" value="ic_gamepiece_placeholder" />
                             <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="C:\Users\bnlak\OneDrive\School\CSCI 4020 - Mobile Software Development II\Assignments\TicTacToe\media\logoabout.svg" />
-                            <entry key="width" value="872" />
+                            <entry key="sourceFile" value="C:\Users\bnlak\OneDrive\School\CSCI 4020 - Mobile Software Development II\Assignments\TicTacToe\media\gamepiece_placeholder.svg" />
+                            <entry key="width" value="200" />
                           </map>
                         </option>
                       </PersistentState>

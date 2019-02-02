@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackgroundLight"
@@ -7,8 +9,10 @@
 
 
     <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="392dp"
+        android:layout_height="348dp"
+        tools:layout_editor_absoluteX="-28dp"
+        tools:layout_editor_absoluteY="143dp">
 
         <TableRow
             android:layout_height="0dp"
@@ -119,4 +123,50 @@
 
         </TableRow>
     </TableLayout>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="80dp"
+        tools:layout_editor_absoluteY="0dp"
+        tools:text="Random turn tic-tac-toe" />
+
+    <ImageButton
+        android:id="@+id/imageButton4"
+        android:layout_width="44dp"
+        android:layout_height="49dp"
+        android:src="@drawable/ic_gamepiece_x_blue"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="82dp" />
+
+    <ImageButton
+        android:id="@+id/imageButton5"
+        android:layout_width="50dp"
+        android:layout_height="51dp"
+        android:src="@drawable/ic_gamepiece_o_red"
+        tools:layout_editor_absoluteX="267dp"
+        tools:layout_editor_absoluteY="76dp" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="75dp"
+        android:layout_height="32dp"
+        android:text="Random"
+        android:textSize="10sp"
+        tools:layout_editor_absoluteX="130dp"
+        tools:layout_editor_absoluteY="85dp" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Each turn is randomized. Press the Random button to know who's turn is next!"
+        android:textAlignment="center"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="30dp" />
+
 </android.support.constraint.ConstraintLayout>

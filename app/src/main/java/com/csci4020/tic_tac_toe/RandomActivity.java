@@ -103,5 +103,17 @@ public class RandomActivity extends Activity implements View.OnClickListener {
             }
         }
 
+        // checks diagonal from left to right
+        if (field[0][0].equals(field[1][1]) && field[0][0].equals(field[2][2])
+                && !field[0][0].equals("")) {
+            return true;
+        }
+
+        // checks diagonal from right to left
+        if (field[0][2].equals(field[1][1]) && field[0][2].equals(field[2][0])
+                     && !field[0][2].equals("")) {
+            return true;
+        }
+
     }
 }

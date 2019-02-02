@@ -75,6 +75,21 @@ public class RandomActivity extends Activity implements View.OnClickListener {
         }
 
         roundCount++;
+
+        // check who wins the game
+        if (checkForWin()) {
+            if (player1Turn) {
+                player1Wins();
+            } else {
+                player2Wins();
+            }
+        } else if (roundCount == 9) {
+            // if no one wins and no more rounds left, it's a draw
+            draw();
+        } else {
+            // if no one won and there's no draw, change who's turn it is
+            player1Turn != player1Turn;
+        }
     }
 
     private boolean checkForWin() {
@@ -114,6 +129,11 @@ public class RandomActivity extends Activity implements View.OnClickListener {
                      && !field[0][2].equals("")) {
             return true;
         }
-
     }
+
+    private void player1Wins() {}
+
+    private void player2Wins() {}
+
+    private void draw() {}
 }

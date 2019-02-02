@@ -8,38 +8,52 @@ Brian Lake
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 public class RandomActivity extends Activity implements View.OnClickListener {
 
+    private Button[][] buttons = new Button[3][3];
 
-    private boolean gameOver = false;
-    private int[][] gameBoardSquares = new int[3][3];
+    // Todo: For now we start w/ player 1 but once we generate random code, the first player will be random
+    private boolean player1Turn = true;
 
-    // TODO: Current piece will be generated randomly
+    // counts the # of rounds. If round gets more than 9, which is the max, we know it's a draw
+    private int roundCount;
 
-    public int[] gameIds = {
-            R.id.imageButton00, R.id.imageButton01, R.id.imageButton02, R.id.imageButton03,
-            R.id.imageButton04, R.id.imageButton05, R.id.imageButton06, R.id.imageButton07,
-            R.id.imageButton08
-    };
+    private int player1Points;
+    private int player2Points;
+
+    private TextView textViewPlayer1;
+    private TextView textViewPlayer2;
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_random);
+
+        textViewPlayer1 = findViewById(R.id.text_view_p1);
+        textViewPlayer2 = findViewById(R.id.text_view_p2);
+
+        // loop through our rows and columns of buttons
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                String buttonID = "button_" + i + j;
+
+                // set click listeners on the buttons
+                int resId = getResources().getIdentifier(buttonID, "id", getPackageName());
+                buttons[i][j] = findViewById(resId);
+                buttons[i][j].setOnClickListener(this);
+            }
+        }
     }
 
     @Override
     public void onClick(View v) {
 
     }
-
-    public void setupButtonListener() {
-        int[] ids = {
-                R.id.btn_o, R.id.btn_x, R.id.imageButton00, R.id.imageButton01, R.id.imageButton02,
-                R.id.imageButton03, R.id.imageButton04, R.id.imageButton05, R.id.imageButton06,
-                R.id.imageButton07, R.id.imageButton08
-        };
-    }
-
 }

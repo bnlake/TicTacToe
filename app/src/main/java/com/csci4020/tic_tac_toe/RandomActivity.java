@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class RandomActivity extends Activity implements View.OnClickListener {
 
@@ -131,9 +132,21 @@ public class RandomActivity extends Activity implements View.OnClickListener {
         }
     }
 
-    private void player1Wins() {}
+    private void player1Wins() {
+        player1Points++;
+        Toast.makeText(this, "Player 1 Wins!", Toast.LENGTH_SHORT).show();
+        updatePointsText(); // will update points
+        resetBoard(); // will reset the board
+    }
 
-    private void player2Wins() {}
+    private void player2Wins() {
+        player2Points++;
+        Toast.makeText(this, "Player 2 Wins!", Toast.LENGTH_SHORT).show();
+        updatePointsText(); // will update points
+        resetBoard(); // will reset the board
+    }
 
-    private void draw() {}
+    private void draw() {
+        
+    }
 }

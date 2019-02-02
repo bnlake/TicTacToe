@@ -7,6 +7,6 @@
     <string name="lblMenuAboutApp">About App</string>
 
     <!--TODO NEED TO FINISH ABOUT PARAGRAPH-->
-    <string name="textAboutApp">Authors: Han &amp; Brian\n
-    Second Line</string>
+    <string name="textAboutApp">Authors: Han &amp; Brian\n\nTic-Tac-Toe is a game known across the world enjoyed by kids of all ages.
+        We have created our app so people may enjoy some variation to the standard game. Play either the Random or Numerical variant.</string>
 </resources>

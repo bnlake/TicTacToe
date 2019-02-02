@@ -50,10 +50,30 @@ public class RandomActivity extends Activity implements View.OnClickListener {
                 buttons[i][j].setOnClickListener(this);
             }
         }
+
+        Button buttonReset = findViewById(R.id.button_reset);
+        buttonReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @Override
     public void onClick(View v) {
+        // checks if button has already been used
+        if (!((Button) v).getText().toString().equals("")) {
+            return;
+        }
 
+        // if it's player one's turn and they click a button, give the button a text of X or O
+        if (player1Turn) {
+            ((Button) v).setText("X");
+        } else {
+            ((Button) v).setText("O");
+        }
+
+        roundCount++;
     }
 }

@@ -76,4 +76,32 @@ public class RandomActivity extends Activity implements View.OnClickListener {
 
         roundCount++;
     }
+
+    private boolean checkForWin() {
+        String[][] field = new String[3][3];
+
+        // loop through all the buttons and save the buttons text as a string, either X or O
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                field[i][j] = buttons[i][j].getText().toString();
+            }
+        }
+
+        // checks each row to make sure each field has the same text, either X or O
+        for (int i = 0; i < 3; i++) {
+            if (field[i][0].equals(field[i][1]) && field[i][0].equals(field[i][2])
+                    && !field[i][0].equals("")) {
+                return true;
+            }
+        }
+
+        // checks each column to make sure each field has the same text, either X or O
+        for (int i = 0; i < 3; i++) {
+            if (field[0][i].equals(field[1][i]) && field[0][i].equals(field[2][i])
+                    && !field[i][0].equals("")) {
+                return true;
+            }
+        }
+
+    }
 }

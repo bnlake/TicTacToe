@@ -21,6 +21,7 @@
             android:layout_weight="1">
             <!--TODO USE VECTOR ASSET FOR PLACEHOLDERS, SCALES WEIRD WITH AN XML SHAPE-->
             <ImageView
+                android:id="@+id/imageButton00"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
@@ -31,6 +32,7 @@
                 android:src="@drawable/ic_gamepiece_placeholder" />
 
             <ImageView
+                android:id="@+id/imageButton01"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
@@ -41,41 +43,7 @@
                 android:src="@drawable/ic_gamepiece_placeholder" />
 
             <ImageView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:background="@color/colorBackgroundDark"
-                android:padding="10dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_gamepiece_placeholder" />
-        </TableRow>
-
-        <TableRow
-            android:layout_height="0dp"
-            android:layout_weight="1">
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:background="@color/colorBackgroundDark"
-                android:padding="10dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_gamepiece_placeholder" />
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:background="@color/colorBackgroundDark"
-                android:padding="10dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_gamepiece_placeholder" />
-
-            <ImageView
+                android:id="@+id/imageButton02"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
@@ -91,6 +59,7 @@
             android:layout_weight="1">
 
             <ImageView
+                android:id="@+id/imageButton03"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
@@ -101,6 +70,7 @@
                 android:src="@drawable/ic_gamepiece_placeholder" />
 
             <ImageView
+                android:id="@+id/imageButton04"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
@@ -111,6 +81,45 @@
                 android:src="@drawable/ic_gamepiece_placeholder" />
 
             <ImageView
+                android:id="@+id/imageButton05"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@color/colorBackgroundDark"
+                android:padding="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_gamepiece_placeholder" />
+        </TableRow>
+
+        <TableRow
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/imageButton06"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@color/colorBackgroundDark"
+                android:padding="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_gamepiece_placeholder" />
+
+            <ImageView
+                android:id="@+id/imageButton07"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@color/colorBackgroundDark"
+                android:padding="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_gamepiece_placeholder" />
+
+            <ImageView
+                android:id="@+id/imageButton08"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"

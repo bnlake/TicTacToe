@@ -111,7 +111,7 @@ public class RandomActivity extends Activity implements View.OnClickListener {
         // checks each column to make sure each field has the same text, either X or O
         for (int i = 0; i < 3; i++) {
             if (field[0][i].equals(field[1][i]) && field[0][i].equals(field[2][i])
-                    && !field[i][0].equals("")) {
+                    && !field[0][i].equals("")) {
                 return true;
             }
         }
@@ -124,7 +124,7 @@ public class RandomActivity extends Activity implements View.OnClickListener {
 
         // checks diagonal from right to left
         if (field[0][2].equals(field[1][1]) && field[0][2].equals(field[2][0])
-                     && !field[0][2].equals("")) {
+                && !field[0][2].equals("")) {
             return true;
         }
 
@@ -157,7 +157,7 @@ public class RandomActivity extends Activity implements View.OnClickListener {
 
     private void resetBoard() {
         for (int i = 0; i < 3; i++) {
-            for (int j = 0; i < 3; j++) {
+            for (int j = 0; j < 3; j++) {
                 buttons[i][j].setText("");
             }
         }

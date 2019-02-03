@@ -58,7 +58,7 @@ public class RandomActivity extends Activity implements View.OnClickListener {
     }
 
     /**
-     * Give
+     * Change text when user presses a button and check if a player has win.
      */
     @Override
     public void onClick(View v) {

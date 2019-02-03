@@ -28,10 +28,6 @@ public class RandomActivity extends Activity implements View.OnClickListener {
     private TextView textViewPlayer1;
     private TextView textViewPlayer2;
 
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,7 +85,8 @@ public class RandomActivity extends Activity implements View.OnClickListener {
             draw();
         } else {
             // if no one won and there's no draw, change who's turn it is
-            player1Turn != player1Turn;
+            player1Turn = !player1Turn;
+
         }
     }
 
@@ -130,6 +127,8 @@ public class RandomActivity extends Activity implements View.OnClickListener {
                      && !field[0][2].equals("")) {
             return true;
         }
+
+        return false;
     }
 
     private void player1Wins() {
@@ -153,9 +152,21 @@ public class RandomActivity extends Activity implements View.OnClickListener {
 
     private void updatePointsText() {
         textViewPlayer1.setText("Player 1: " + player1Points);
+        textViewPlayer2.setText("Player 2: " + player2Points);
     }
 
     private void resetBoard() {
-        textViewPlayer1.setText("Player 2: " + player2Points);
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; i < 3; j++) {
+                buttons[i][j].setText("");
+            }
+        }
+
+        roundCount = 0;
+
+        // TODO: when board resets, there should be no player until the Random button is pressed
+        player1Turn = true;
     }
+
+
 }

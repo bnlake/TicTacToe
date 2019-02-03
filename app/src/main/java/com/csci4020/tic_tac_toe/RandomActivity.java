@@ -52,7 +52,7 @@ public class RandomActivity extends Activity implements View.OnClickListener {
         buttonReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                resetGame();
             }
         });
     }
@@ -168,5 +168,13 @@ public class RandomActivity extends Activity implements View.OnClickListener {
         player1Turn = true;
     }
 
+    private void resetGame() {
+        // reset game and points 
+        player1Points = 0;
+        player2Points = 0;
+        updatePointsText();
+        resetBoard();
+
+    }
 
 }

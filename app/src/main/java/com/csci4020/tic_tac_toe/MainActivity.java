@@ -36,6 +36,16 @@ public class MainActivity extends Activity {
                 gotoAboutApp();
             }
         });
+
+        findViewById(R.id.btnMenuPlayWild).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                playWild();
+            }
+        });
+
     }
 
     /**
@@ -56,4 +66,11 @@ public class MainActivity extends Activity {
         Intent intent = new Intent(getApplicationContext(), RandomActivity.class);
         startActivity(intent);
     }
+
+    private void playWild()
+    {
+        Intent intent = new Intent(getApplicationContext(), WildActivity.class);
+        startActivity(intent);
+    }
+
 }

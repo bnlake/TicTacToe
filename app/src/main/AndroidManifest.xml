@@ -19,6 +19,7 @@
 
         <activity android:name=".AboutActivity"/>
         <activity android:name=".RandomActivity"/>
+        <activity android:name=".WildActivity"/>
     </application>
 
 </manifest>

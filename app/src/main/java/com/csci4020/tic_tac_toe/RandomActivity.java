@@ -57,6 +57,9 @@ public class RandomActivity extends Activity implements View.OnClickListener {
         });
     }
 
+    /**
+     * Give
+     */
     @Override
     public void onClick(View v) {
         // checks if button has already been used
@@ -90,6 +93,9 @@ public class RandomActivity extends Activity implements View.OnClickListener {
         }
     }
 
+    /**
+     * Check the board to see if either player 1 or player 2 has won
+     */
     private boolean checkForWin() {
         String[][] field = new String[3][3];
 
@@ -131,6 +137,9 @@ public class RandomActivity extends Activity implements View.OnClickListener {
         return false;
     }
 
+    /**
+     * When player 1 wins, increment their points, display message, update the points text, and reset the board
+     */
     private void player1Wins() {
         player1Points++;
         Toast.makeText(this, "Player 1 Wins!", Toast.LENGTH_SHORT).show();
@@ -138,6 +147,9 @@ public class RandomActivity extends Activity implements View.OnClickListener {
         resetBoard(); // will reset the board
     }
 
+    /**
+     * When player 2 wins, increment their points, display message, update the points text, and reset the board
+     */
     private void player2Wins() {
         player2Points++;
         Toast.makeText(this, "Player 2 Wins!", Toast.LENGTH_SHORT).show();
@@ -145,16 +157,25 @@ public class RandomActivity extends Activity implements View.OnClickListener {
         resetBoard(); // will reset the board
     }
 
+    /**
+     * Reset the board when there is a draw
+     */
     private void draw() {
         Toast.makeText(this, "It's a Draw!", Toast.LENGTH_SHORT).show();
         resetBoard();
     }
 
+    /**
+     * Update the TextView to display points of each player
+     */
     private void updatePointsText() {
         textViewPlayer1.setText("Player 1: " + player1Points);
         textViewPlayer2.setText("Player 2: " + player2Points);
     }
 
+    /**
+     * Resets the board so players can play a new game
+     */
     private void resetBoard() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -168,8 +189,11 @@ public class RandomActivity extends Activity implements View.OnClickListener {
         player1Turn = true;
     }
 
+    /**
+     * Resets points of hte players, updates the TextView of the points, and resets the board
+     */
     private void resetGame() {
-        // reset game and points 
+        // reset game and points
         player1Points = 0;
         player2Points = 0;
         updatePointsText();
@@ -177,4 +201,29 @@ public class RandomActivity extends Activity implements View.OnClickListener {
 
     }
 
+    /**
+     * Saves the state of our variables so it's not affected when orientation changes
+     */
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt("roundCount", roundCount);
+        outState.putInt("player1Points", player1Points);
+        outState.putInt("player2Points", player2Points);
+        outState.putBoolean("player1Turn", player1Turn);
+    }
+
+    /**
+     * Reaches the values from onSaveInstanceState
+     */
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        roundCount = savedInstanceState.getInt("roundCount");
+        player1Points = savedInstanceState.getInt("player1Points");
+        player2Points = savedInstanceState.getInt("player2Points");
+        player1Turn = savedInstanceState.getBoolean("player1Turn");
+    }
 }

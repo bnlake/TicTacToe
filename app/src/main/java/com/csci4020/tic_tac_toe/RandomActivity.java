@@ -226,4 +226,16 @@ public class RandomActivity extends Activity implements View.OnClickListener {
         player2Points = savedInstanceState.getInt("player2Points");
         player1Turn = savedInstanceState.getBoolean("player1Turn");
     }
+
+    /**
+     * Choose random player using contansts from gamepiece
+     * @return int Player A or Player B
+     */
+    protected int selectRandomPlayer()
+    {
+        if (((Math.random() * 10) % 2) == 1)
+            return clsGamePiece.PLAYER_A;
+        else
+            return clsGamePiece.PLAYER_B;
+    }
 }

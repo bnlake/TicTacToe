@@ -57,7 +57,7 @@ public class RandomActivity extends Activity implements View.OnClickListener {
         });
 
         // Pick random player for first move.
-		player1Turn = (selectRandomPlayer() == clsGamePiece.PLAYER_A);
+		chooseRandomPlayer();
     }
 
     /**
@@ -80,7 +80,7 @@ public class RandomActivity extends Activity implements View.OnClickListener {
         roundCount++;
 
         // Pick next random player
-        player1Turn = (selectRandomPlayer() == clsGamePiece.PLAYER_A);
+        chooseRandomPlayer();
 
         // check who wins the game
         if (checkForWin()) {
@@ -190,12 +190,12 @@ public class RandomActivity extends Activity implements View.OnClickListener {
 
         roundCount = 0;
 
-        // TODO: when board resets, there should be no player until the Random button is pressed
-        player1Turn = true;
+        // Pick next random player after board is reset
+        chooseRandomPlayer();
     }
 
     /**
-     * Resets points of hte players, updates the TextView of the points, and resets the board
+     * Resets points of the players, updates the TextView of the points, and resets the board
      */
     private void resetGame() {
         // reset game and points
@@ -235,11 +235,8 @@ public class RandomActivity extends Activity implements View.OnClickListener {
      * Choose random player using contansts from gamepiece
      * @return int Player A or Player B
      */
-    protected int selectRandomPlayer()
+    protected void chooseRandomPlayer()
     {
-        if (((Math.random() * 10) % 2) == 1)
-            return clsGamePiece.PLAYER_A;
-        else
-            return clsGamePiece.PLAYER_B;
+        player1Turn = (((Math.random() * 10) % 2) == 1);
     }
 }

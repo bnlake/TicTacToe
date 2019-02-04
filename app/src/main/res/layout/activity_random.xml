@@ -51,6 +51,7 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:background="@color/colorBackgroundDark"
+            android:padding="5dp"
             android:scaleType="fitCenter"
             android:tag=""
             android:textSize="60sp" />
@@ -62,6 +63,7 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:background="@color/colorBackgroundDark"
+            android:padding="5dp"
             android:scaleType="fitCenter"
             android:tag=""
             android:textSize="60sp" />
@@ -73,6 +75,7 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:background="@color/colorBackgroundDark"
+            android:padding="5dp"
             android:scaleType="fitCenter"
             android:tag=""
             android:textSize="60sp" />
@@ -91,6 +94,7 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:background="@color/colorBackgroundDark"
+            android:padding="5dp"
             android:scaleType="fitCenter"
             android:tag=""
             android:textSize="60sp" />
@@ -102,6 +106,7 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:background="@color/colorBackgroundDark"
+            android:padding="5dp"
             android:scaleType="fitCenter"
             android:tag=""
             android:textSize="60sp" />
@@ -113,6 +118,7 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:background="@color/colorBackgroundDark"
+            android:padding="5dp"
             android:scaleType="fitCenter"
             android:tag=""
             android:textSize="60sp" />
@@ -131,6 +137,7 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:background="@color/colorBackgroundDark"
+            android:padding="5dp"
             android:scaleType="fitCenter"
             android:tag=""
             android:textSize="60sp" />
@@ -142,6 +149,7 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:background="@color/colorBackgroundDark"
+            android:padding="5dp"
             android:scaleType="fitCenter"
             android:tag=""
             android:textSize="60sp" />
@@ -153,6 +161,7 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:background="@color/colorBackgroundDark"
+            android:padding="5dp"
             android:scaleType="fitCenter"
             android:tag=""
             android:textSize="60sp" />

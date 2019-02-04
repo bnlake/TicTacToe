@@ -79,6 +79,9 @@ public class RandomActivity extends Activity implements View.OnClickListener {
 
         roundCount++;
 
+        // Pick next random player
+        player1Turn = (selectRandomPlayer() == clsGamePiece.PLAYER_A);
+
         // check who wins the game
         if (checkForWin()) {
             if (player1Turn) {
@@ -92,7 +95,6 @@ public class RandomActivity extends Activity implements View.OnClickListener {
         } else {
             // if no one won and there's no draw, change who's turn it is
             player1Turn = !player1Turn;
-
         }
     }
 

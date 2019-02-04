@@ -224,6 +224,7 @@ public class RandomActivity extends Activity implements View.OnClickListener
 			for (int j = 0; j < 3; j++)
 			{
 				imageButtons[i][j].setTag("");
+				imageButtons[i][j].setImageResource(0);
 			}
 		}
 

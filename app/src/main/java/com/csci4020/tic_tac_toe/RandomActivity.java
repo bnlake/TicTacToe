@@ -39,6 +39,9 @@ public class RandomActivity extends Activity implements View.OnClickListener
 		textViewPlayer1 = findViewById(R.id.text_view_p1);
 		textViewPlayer2 = findViewById(R.id.text_view_p2);
 
+		// Pick random player for first move.
+		chooseRandomPlayer();
+
 		// loop through our rows and columns of buttons
 		for (int r = 0; r < 3; r++)
 		{
@@ -63,8 +66,7 @@ public class RandomActivity extends Activity implements View.OnClickListener
 			}
 		});
 
-		// Pick random player for first move.
-		chooseRandomPlayer();
+
 	}
 
 	/**
@@ -91,9 +93,6 @@ public class RandomActivity extends Activity implements View.OnClickListener
 
 		roundCount++;
 
-		// Pick next random player
-		chooseRandomPlayer();
-
 		// check who wins the game
 		if (checkForWin())
 		{
@@ -114,7 +113,8 @@ public class RandomActivity extends Activity implements View.OnClickListener
 		else
 		{
 			// if no one won and there's no draw, change who's turn it is
-			player1Turn = !player1Turn;
+			// Pick next random player
+			chooseRandomPlayer();
 		}
 	}
 
@@ -278,8 +278,8 @@ public class RandomActivity extends Activity implements View.OnClickListener
 		player1Turn = (Math.random() < .5);
 		// Identify to the user who's play it is
 		if (player1Turn)
-			((TextView)findViewById(R.id.text_view_currentPlayer)).setText("Current Player: 1");
+			((TextView) findViewById(R.id.text_view_currentPlayer)).setText("Current Player: X");
 		else
-			((TextView)findViewById(R.id.text_view_currentPlayer)).setText("Current Player: 2");
+			((TextView) findViewById(R.id.text_view_currentPlayer)).setText("Current Player: O");
 	}
 }

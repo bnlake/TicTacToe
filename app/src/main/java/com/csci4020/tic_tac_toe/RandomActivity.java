@@ -37,14 +37,14 @@ public class RandomActivity extends Activity implements View.OnClickListener {
         textViewPlayer2 = findViewById(R.id.text_view_p2);
 
         // loop through our rows and columns of buttons
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                String buttonID = "button_" + i + j;
+        for (int r = 0; r < 3; r++) {
+            for (int c = 0; c < 3; c++) {
+                String buttonID = "button_" + r + c;
 
                 // set click listeners on the buttons
                 int resId = getResources().getIdentifier(buttonID, "id", getPackageName());
-                buttons[i][j] = findViewById(resId);
-                buttons[i][j].setOnClickListener(this);
+                buttons[r][c] = findViewById(resId);
+                buttons[r][c].setOnClickListener(this);
             }
         }
 
@@ -198,7 +198,6 @@ public class RandomActivity extends Activity implements View.OnClickListener {
         player2Points = 0;
         updatePointsText();
         resetBoard();
-
     }
 
     /**

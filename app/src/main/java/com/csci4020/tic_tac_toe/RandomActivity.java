@@ -233,10 +233,10 @@ public class RandomActivity extends Activity implements View.OnClickListener {
 
     /**
      * Choose random player using contansts from gamepiece
-     * @return int Player A or Player B
      */
     protected void chooseRandomPlayer()
     {
-        player1Turn = (((Math.random() * 10) % 2) == 1);
+        player1Turn = (((Math.random() < .5);
+
     }
 }

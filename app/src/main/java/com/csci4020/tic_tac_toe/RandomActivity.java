@@ -10,13 +10,14 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class RandomActivity extends Activity implements View.OnClickListener
 {
 
-	private Button[][] buttons = new Button[3][3];
+	private ImageButton[][] imageButtons = new ImageButton[3][3];
 
 	// Todo: For now we start w/ player 1 but once we generate random code, the first player will be random
 	private boolean player1Turn = true;
@@ -42,17 +43,17 @@ public class RandomActivity extends Activity implements View.OnClickListener
 		// Pick random player for first move.
 		chooseRandomPlayer();
 
-		// loop through our rows and columns of buttons
+		// loop through our rows and columns of imageButtons
 		for (int r = 0; r < 3; r++)
 		{
 			for (int c = 0; c < 3; c++)
 			{
 				String buttonID = "button_" + r + c;
 
-				// set click listeners on the buttons
+				// set click listeners on the imageButtons
 				int resId = getResources().getIdentifier(buttonID, "id", getPackageName());
-				buttons[r][c] = findViewById(resId);
-				buttons[r][c].setOnClickListener(this);
+				imageButtons[r][c] = findViewById(resId);
+				imageButtons[r][c].setOnClickListener(this);
 			}
 		}
 
@@ -76,7 +77,7 @@ public class RandomActivity extends Activity implements View.OnClickListener
 	public void onClick(View v)
 	{
 		// checks if button has already been used
-		if (!((Button) v).getText().toString().equals(""))
+		if (!(v).getTag().equals(""))
 		{
 			return;
 		}
@@ -84,11 +85,13 @@ public class RandomActivity extends Activity implements View.OnClickListener
 		// if it's player one's turn and they click a button, give the button a text of X or O
 		if (player1Turn)
 		{
-			((Button) v).setText("X");
+			(v).setTag("X");
+			((ImageButton) v).setImageResource(R.drawable.ic_gamepiece_x_red);
 		}
 		else
 		{
-			((Button) v).setText("O");
+			(v).setTag("X");
+			((ImageButton) v).setImageResource(R.drawable.ic_gamepiece_o_blue);
 		}
 
 		roundCount++;
@@ -125,12 +128,12 @@ public class RandomActivity extends Activity implements View.OnClickListener
 	{
 		String[][] field = new String[3][3];
 
-		// loop through all the buttons and save the buttons text as a string, either X or O
+		// loop through all the imageButtons and save the imageButtons text as a string, either X or O
 		for (int i = 0; i < 3; i++)
 		{
 			for (int j = 0; j < 3; j++)
 			{
-				field[i][j] = buttons[i][j].getText().toString();
+				field[i][j] = imageButtons[i][j].getTag().toString();
 			}
 		}
 
@@ -220,7 +223,7 @@ public class RandomActivity extends Activity implements View.OnClickListener
 		{
 			for (int j = 0; j < 3; j++)
 			{
-				buttons[i][j].setText("");
+				imageButtons[i][j].setTag("");
 			}
 		}
 

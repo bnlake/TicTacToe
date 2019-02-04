@@ -90,7 +90,7 @@ public class RandomActivity extends Activity implements View.OnClickListener
 		}
 		else
 		{
-			(v).setTag("X");
+			(v).setTag("O");
 			((ImageButton) v).setImageResource(R.drawable.ic_gamepiece_o_blue);
 		}
 

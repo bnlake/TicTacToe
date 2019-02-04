@@ -258,6 +258,7 @@ public class RandomActivity extends Activity implements View.OnClickListener
 		outState.putInt("player1Points", player1Points);
 		outState.putInt("player2Points", player2Points);
 		outState.putBoolean("player1Turn", player1Turn);
+		// TODO FIGURE OUT HOW TO CARRY THE IMAGEBUTTONS IMAGERESOURCE
 	}
 
 	/**

@@ -55,6 +55,9 @@ public class RandomActivity extends Activity implements View.OnClickListener {
                 resetGame();
             }
         });
+
+        // Pick random player for first move.
+		player1Turn = (selectRandomPlayer() == clsGamePiece.PLAYER_A);
     }
 
     /**

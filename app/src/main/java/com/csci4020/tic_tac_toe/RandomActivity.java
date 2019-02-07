@@ -7,19 +7,22 @@ Brian Lake
  */
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class RandomActivity extends Activity implements View.OnClickListener
 {
+	// Need a way to restore state of moves. Shared Preferences seems to be ok
+	final SharedPreferences sharedPreferences = this.getSharedPreferences("tictactoe", Context.MODE_PRIVATE);
 
 	private ImageButton[][] imageButtons = new ImageButton[3][3];
-
-	// Todo: For now we start w/ player 1 but once we generate random code, the first player will be random
 	private boolean player1Turn = true;
 
 	// counts the # of rounds. If round gets more than 9, which is the max, we know it's a draw
@@ -54,6 +57,13 @@ public class RandomActivity extends Activity implements View.OnClickListener
 				int resId = getResources().getIdentifier(buttonID, "id", getPackageName());
 				imageButtons[r][c] = findViewById(resId);
 				imageButtons[r][c].setOnClickListener(this);
+				// Attempt to restore state if changes were made
+				if (sharedPreferences.getBoolean(resId + "_isPlayed",false))
+				{
+					// Retrieve state objects. Error handle by using default null values (odd case)
+					imageButtons[r][c].setImageResource(sharedPreferences.getInt(resId + "_image",R.drawable.ic_gamepiece_placeholder));
+					imageButtons[r][c].setTag(sharedPreferences.getString(resId + "_tag",""));
+				}
 			}
 		}
 
@@ -83,15 +93,22 @@ public class RandomActivity extends Activity implements View.OnClickListener
 		}
 
 		// if it's player one's turn and they click a button, give the button a text of X or O
+		// Also store the change to preferences for state restore
 		if (player1Turn)
 		{
 			(v).setTag("X");
+			sharedPreferences.edit().putString(v.getId() + "_tag","X").apply();
 			((ImageButton) v).setImageResource(R.drawable.ic_gamepiece_x_red);
+			sharedPreferences.edit().putInt(v.getId() + "_image",R.drawable.ic_gamepiece_x_red).apply();
+			sharedPreferences.edit().putBoolean(v.getId() + "_isPlayed",true).apply();
 		}
 		else
 		{
 			(v).setTag("O");
+			sharedPreferences.edit().putString(v.getId() + "_tag","O").apply();
 			((ImageButton) v).setImageResource(R.drawable.ic_gamepiece_o_blue);
+			sharedPreferences.edit().putInt(v.getId() + "_image",R.drawable.ic_gamepiece_o_blue).apply();
+			sharedPreferences.edit().putBoolean(v.getId() + "_isPlayed",true).apply();
 		}
 
 		roundCount++;
@@ -258,7 +275,6 @@ public class RandomActivity extends Activity implements View.OnClickListener
 		outState.putInt("player1Points", player1Points);
 		outState.putInt("player2Points", player2Points);
 		outState.putBoolean("player1Turn", player1Turn);
-		// TODO FIGURE OUT HOW TO CARRY THE IMAGEBUTTONS IMAGERESOURCE
 	}
 
 	/**

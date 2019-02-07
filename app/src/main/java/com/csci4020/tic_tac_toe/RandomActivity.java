@@ -267,6 +267,9 @@ public class RandomActivity extends Activity implements View.OnClickListener
 
 		roundCount = 0;
 
+		// Reset preferences for sureity sake
+		sharedPreferences.edit().clear().apply();
+
 		// Pick next random player after board is reset
 		chooseRandomPlayer();
 	}

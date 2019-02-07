@@ -13,15 +13,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class RandomActivity extends Activity implements View.OnClickListener
 {
-	// Need a way to restore state of moves. Shared Preferences seems to be ok
-	final SharedPreferences sharedPreferences = this.getSharedPreferences("tictactoe", Context.MODE_PRIVATE);
-
+	SharedPreferences sharedPreferences;
 	private ImageButton[][] imageButtons = new ImageButton[3][3];
 	private boolean player1Turn = true;
 
@@ -40,11 +37,24 @@ public class RandomActivity extends Activity implements View.OnClickListener
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_random);
 
+		// Need a way to restore state of moves. Shared Preferences seems to be ok
+		sharedPreferences = this.getSharedPreferences("tictactoe", Context.MODE_PRIVATE);
+		// Restore current player or pick random player for first move.
+		if (sharedPreferences.contains("isPlayer1Turn"))
+		{
+			if (sharedPreferences.getBoolean("isPlayer1Turn",false))
+			{
+				player1Turn = true;
+				((TextView) findViewById(R.id.text_view_currentPlayer)).setText("Current Player: X");
+			}
+		}
+		else
+			chooseRandomPlayer();
+
 		textViewPlayer1 = findViewById(R.id.text_view_p1);
 		textViewPlayer2 = findViewById(R.id.text_view_p2);
 
-		// Pick random player for first move.
-		chooseRandomPlayer();
+
 
 		// loop through our rows and columns of imageButtons
 		for (int r = 0; r < 3; r++)
@@ -124,17 +134,22 @@ public class RandomActivity extends Activity implements View.OnClickListener
 			{
 				player2Wins();
 			}
+			// Clear Preferences
+			sharedPreferences.edit().clear().apply();
 		}
 		else if (roundCount == 9)
 		{
 			// if no one wins and no more rounds left, it's a draw
 			draw();
+			// Clear preferences
+			sharedPreferences.edit().clear().apply();
 		}
 		else
 		{
 			// if no one won and there's no draw, change who's turn it is
 			// Pick next random player
 			chooseRandomPlayer();
+			sharedPreferences.edit().putBoolean("isPlayer1Turn",player1Turn).apply();
 		}
 	}
 

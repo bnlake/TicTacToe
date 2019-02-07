@@ -47,6 +47,11 @@ public class RandomActivity extends Activity implements View.OnClickListener
 				player1Turn = true;
 				((TextView) findViewById(R.id.text_view_currentPlayer)).setText("Current Player: X");
 			}
+			else
+			{
+				player1Turn = false;
+				((TextView) findViewById(R.id.text_view_currentPlayer)).setText("Current Player: O");
+			}
 		}
 		else
 			chooseRandomPlayer();

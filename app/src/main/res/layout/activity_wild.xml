@@ -105,12 +105,12 @@
         android:padding="10dp"
         android:scaleType="fitCenter"
         android:src="@drawable/letter_o"
-        app:layout_constraintBottom_toTopOf="@+id/text_view_p2"
+        app:layout_constraintBottom_toTopOf="@+id/player_two"
         app:layout_constraintStart_toEndOf="@+id/textView5"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
     <TextView
-        android:id="@+id/text_view_p2"
+        android:id="@+id/player_two"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"

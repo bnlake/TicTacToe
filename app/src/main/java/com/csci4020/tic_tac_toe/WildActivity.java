@@ -11,31 +11,22 @@ import android.widget.Toast;
 public class WildActivity extends Activity implements View.OnClickListener {
 
     private int currentPiece = R.drawable.letter_x, currentPlayer = 0, piecesPlaced = 0;
-    private boolean[] gameBoardFlags = new boolean[36];
+    private boolean[] gameBoardFlags = new boolean[9];
     private boolean gameOver = false;
-    private int[][] gameBoardSquares = new int[6][6];
+    private int[][] gameBoardSquares = new int[3][3];
     private int Col2DIndex = -1;
     private int Row2DIndex = -1;
 
     public int[] gameIds = {
-            R.id.imageButton00, R.id.imageButton01, R.id.imageButton02, R.id.imageButton03,
-            R.id.imageButton04, R.id.imageButton05, R.id.imageButton10, R.id.imageButton11,
-            R.id.imageButton12, R.id.imageButton13, R.id.imageButton14, R.id.imageButton15,
-            R.id.imageButton20, R.id.imageButton21, R.id.imageButton22, R.id.imageButton23,
-            R.id.imageButton24, R.id.imageButton25, R.id.imageButton30, R.id.imageButton31,
-            R.id.imageButton32, R.id.imageButton33, R.id.imageButton34, R.id.imageButton35,
-            R.id.imageButton40, R.id.imageButton41, R.id.imageButton42, R.id.imageButton43,
-            R.id.imageButton44, R.id.imageButton45, R.id.imageButton50, R.id.imageButton51,
-            R.id.imageButton52, R.id.imageButton53, R.id.imageButton54, R.id.imageButton55
+            R.id.imageButton00, R.id.imageButton10, R.id.imageButton20,
+            R.id.imageButton01, R.id.imageButton11, R.id.imageButton21,
+            R.id.imageButton02, R.id.imageButton12, R.id.imageButton22
     };
 
     public int[][] game2DArrayIds = {
-            {R.id.imageButton00, R.id.imageButton01, R.id.imageButton02, R.id.imageButton03, R.id.imageButton04, R.id.imageButton05},
-            {R.id.imageButton10, R.id.imageButton11, R.id.imageButton12, R.id.imageButton13, R.id.imageButton14, R.id.imageButton15},
-            {R.id.imageButton20, R.id.imageButton21, R.id.imageButton22, R.id.imageButton23, R.id.imageButton24, R.id.imageButton25},
-            {R.id.imageButton30, R.id.imageButton31, R.id.imageButton32, R.id.imageButton33, R.id.imageButton34, R.id.imageButton35},
-            {R.id.imageButton40, R.id.imageButton41, R.id.imageButton42, R.id.imageButton43, R.id.imageButton44, R.id.imageButton45},
-            {R.id.imageButton50, R.id.imageButton51, R.id.imageButton52, R.id.imageButton53, R.id.imageButton54, R.id.imageButton55}
+            {R.id.imageButton00, R.id.imageButton01, R.id.imageButton02},
+            {R.id.imageButton10, R.id.imageButton11, R.id.imageButton12},
+            {R.id.imageButton20, R.id.imageButton21, R.id.imageButton22}
     };
 
     @Override
@@ -71,17 +62,8 @@ public class WildActivity extends Activity implements View.OnClickListener {
                 ((ImageButton) findViewById(R.id.btn_o)).setBackgroundResource(R.drawable.white_button_black_border);
                 break;
             case R.id.imageButton00: case R.id.imageButton01: case R.id.imageButton02:
-            case R.id.imageButton03: case R.id.imageButton04: case R.id.imageButton05:
             case R.id.imageButton10: case R.id.imageButton11: case R.id.imageButton12:
-            case R.id.imageButton13: case R.id.imageButton14: case R.id.imageButton15:
             case R.id.imageButton20: case R.id.imageButton21: case R.id.imageButton22:
-            case R.id.imageButton23: case R.id.imageButton24: case R.id.imageButton25:
-            case R.id.imageButton30: case R.id.imageButton31: case R.id.imageButton32:
-            case R.id.imageButton33: case R.id.imageButton34: case R.id.imageButton35:
-            case R.id.imageButton40: case R.id.imageButton41: case R.id.imageButton42:
-            case R.id.imageButton43: case R.id.imageButton44: case R.id.imageButton45:
-            case R.id.imageButton50: case R.id.imageButton51: case R.id.imageButton52:
-            case R.id.imageButton53: case R.id.imageButton54: case R.id.imageButton55:
                 placeGamePiece(view.getId());
                 break;
             default:
@@ -89,20 +71,15 @@ public class WildActivity extends Activity implements View.OnClickListener {
         }
     }
 
-    public void setupButtonListener(){
+    public void setupButtonListener() {
         int[] ids = {
-                R.id.btn_x, R.id.btn_o, R.id.imageButton00, R.id.imageButton01, R.id.imageButton02,
-                R.id.imageButton03, R.id.imageButton04, R.id.imageButton05, R.id.imageButton10,
-                R.id.imageButton11, R.id.imageButton12, R.id.imageButton13, R.id.imageButton14,
-                R.id.imageButton15, R.id.imageButton20, R.id.imageButton21, R.id.imageButton22,
-                R.id.imageButton23, R.id.imageButton24, R.id.imageButton25, R.id.imageButton30,
-                R.id.imageButton31, R.id.imageButton32, R.id.imageButton33, R.id.imageButton34,
-                R.id.imageButton35, R.id.imageButton40, R.id.imageButton41, R.id.imageButton42,
-                R.id.imageButton43, R.id.imageButton44, R.id.imageButton45, R.id.imageButton50,
-                R.id.imageButton51, R.id.imageButton52, R.id.imageButton53, R.id.imageButton54,
-                R.id.imageButton55
+                R.id.btn_x, R.id.btn_o,
+                R.id.imageButton00, R.id.imageButton01, R.id.imageButton02,
+                R.id.imageButton10, R.id.imageButton11, R.id.imageButton12,
+                R.id.imageButton20, R.id.imageButton21, R.id.imageButton22,
         };
-        for(int i = 0; i < ids.length; i++){
+
+        for (int i = 0; i < ids.length; i++) {
             ((ImageButton) findViewById(ids[i])).setOnClickListener(this);
         }
     }
@@ -147,7 +124,7 @@ public class WildActivity extends Activity implements View.OnClickListener {
 
             pastImage = gameBoardSquares[Col2DIndex][i];
 
-            if (consecutivePieces == 5){
+            if (consecutivePieces == 3){
                 // game over
                 endGame("Order");
             }
@@ -166,12 +143,11 @@ public class WildActivity extends Activity implements View.OnClickListener {
 
             pastImage = gameBoardSquares[i][Row2DIndex];
 
-            if (consecutivePieces == 5){
+            if (consecutivePieces == 3){
                 // we have a winner
                 endGame("Order");
             }
         }
-
 
         // Diagonal
         consecutivePieces = 1;
@@ -187,7 +163,7 @@ public class WildActivity extends Activity implements View.OnClickListener {
                     consecutivePieces = 1;
                 }
                 pastImage = gameBoardSquares[i+1][i];
-                if (consecutivePieces == 5){
+                if (consecutivePieces == 3){
                     // game over
                     endGame("Order");
                 }
@@ -201,7 +177,7 @@ public class WildActivity extends Activity implements View.OnClickListener {
                     consecutivePieces = 1;
                 }
                 pastImage = gameBoardSquares[i][i];
-                if (consecutivePieces == 5){
+                if (consecutivePieces == 3){
                     // game over
                     endGame("Order");
                 }
@@ -215,7 +191,7 @@ public class WildActivity extends Activity implements View.OnClickListener {
                     consecutivePieces = 1;
                 }
                 pastImage = gameBoardSquares[i][i+1];
-                if (consecutivePieces == 5){
+                if (consecutivePieces == 3){
                     // game over
                     endGame("Order");
                 }
@@ -226,7 +202,7 @@ public class WildActivity extends Activity implements View.OnClickListener {
         pastImage = -1;
 
         // starts top right
-        if( (Col2DIndex + Row2DIndex) == 4){
+        if( (Col2DIndex + Row2DIndex) == 1){
             // Top
             for (int i = 0, k = game2DArrayIds.length-2; i < game2DArrayIds.length-1; i++,k--){
                 if(gameBoardSquares[k][i] != currentPiece){
@@ -237,7 +213,8 @@ public class WildActivity extends Activity implements View.OnClickListener {
                     endGame("Order");
                 }
             }
-        } else if ( (Col2DIndex + Row2DIndex) == 5){
+        } else
+        if ( (Col2DIndex + Row2DIndex) == 2){
             // Middle
             for (int i = 0, k = game2DArrayIds.length-1; i < game2DArrayIds.length; i++,k--){
                 if (gameBoardSquares[k][i] == pastImage && gameBoardSquares[k][i] == currentPiece){
@@ -246,12 +223,12 @@ public class WildActivity extends Activity implements View.OnClickListener {
                     consecutivePieces = 1;
                 }
                 pastImage = gameBoardSquares[k][i];
-                if (consecutivePieces == 5){
+                if (consecutivePieces == 3){
                     // game over
                     endGame("Order");
                 }
             }
-        } else if ( (Col2DIndex + Row2DIndex) == 6){
+        } else if ( (Col2DIndex + Row2DIndex) == 3){
             // Bottom
             for (int i = 0, k = game2DArrayIds.length-1; i < game2DArrayIds.length-1; i++,k--){
                 if(gameBoardSquares[k][i+1] != currentPiece){
@@ -263,23 +240,30 @@ public class WildActivity extends Activity implements View.OnClickListener {
                 }
             }
         }
+
         piecesPlaced++;
         switchPlayers();
         // if board is completely filled with pieces
         if(allPiecesUsed()) {
-            endGame("Chaos");
+            endGame("Draw");
         }
     }
 
     // if no more pieces can be used
     public boolean allPiecesUsed(){
-        return piecesPlaced >= 36;
+        return piecesPlaced >= 9;
     }
 
     // game over
     public void endGame(String winner){
         gameOver = true;
-        Toast.makeText(getApplicationContext(),winner + " is the winner!",Toast.LENGTH_SHORT).show();
+        if (allPiecesUsed()) {
+            Toast.makeText(getApplicationContext(),"It's a draw!",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getApplicationContext(),winner + " is the winner!",Toast.LENGTH_SHORT).show();
+        }
+
+
     }
 
     public int findIndexOfId(int id){

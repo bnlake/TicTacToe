@@ -8,8 +8,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class WildActivity extends Activity implements View.OnClickListener {
-
+public class oldWildActivity extends Activity implements  View.OnClickListener {
     private int currentPiece = R.drawable.letter_x, currentPlayer = 0, piecesPlaced = 0;
     private boolean[] gameBoardFlags = new boolean[36];
     private boolean gameOver = false;

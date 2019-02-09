@@ -7,18 +7,19 @@ Brian Lake
  */
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class RandomActivity extends Activity implements View.OnClickListener
 {
-
-	private Button[][] buttons = new Button[3][3];
-
-	// Todo: For now we start w/ player 1 but once we generate random code, the first player will be random
+	SharedPreferences sharedPreferences;
+	private ImageButton[][] imageButtons = new ImageButton[3][3];
 	private boolean player1Turn = true;
 
 	// counts the # of rounds. If round gets more than 9, which is the max, we know it's a draw
@@ -36,23 +37,48 @@ public class RandomActivity extends Activity implements View.OnClickListener
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_random);
 
+		// Need a way to restore state of moves. Shared Preferences seems to be ok
+		sharedPreferences = this.getSharedPreferences("tictactoe", Context.MODE_PRIVATE);
+		// Restore current player or pick random player for first move.
+		if (sharedPreferences.contains("isPlayer1Turn"))
+		{
+			if (sharedPreferences.getBoolean("isPlayer1Turn",false))
+			{
+				player1Turn = true;
+				((TextView) findViewById(R.id.text_view_currentPlayer)).setText("Current Player: X");
+			}
+			else
+			{
+				player1Turn = false;
+				((TextView) findViewById(R.id.text_view_currentPlayer)).setText("Current Player: O");
+			}
+		}
+		else
+			chooseRandomPlayer();
+
 		textViewPlayer1 = findViewById(R.id.text_view_p1);
 		textViewPlayer2 = findViewById(R.id.text_view_p2);
 
-		// Pick random player for first move.
-		chooseRandomPlayer();
 
-		// loop through our rows and columns of buttons
+
+		// loop through our rows and columns of imageButtons
 		for (int r = 0; r < 3; r++)
 		{
 			for (int c = 0; c < 3; c++)
 			{
 				String buttonID = "button_" + r + c;
 
-				// set click listeners on the buttons
+				// set click listeners on the imageButtons
 				int resId = getResources().getIdentifier(buttonID, "id", getPackageName());
-				buttons[r][c] = findViewById(resId);
-				buttons[r][c].setOnClickListener(this);
+				imageButtons[r][c] = findViewById(resId);
+				imageButtons[r][c].setOnClickListener(this);
+				// Attempt to restore state if changes were made
+				if (sharedPreferences.getBoolean(resId + "_isPlayed",false))
+				{
+					// Retrieve state objects. Error handle by using default null values (odd case)
+					imageButtons[r][c].setImageResource(sharedPreferences.getInt(resId + "_image",R.drawable.ic_gamepiece_placeholder));
+					imageButtons[r][c].setTag(sharedPreferences.getString(resId + "_tag",""));
+				}
 			}
 		}
 
@@ -76,19 +102,28 @@ public class RandomActivity extends Activity implements View.OnClickListener
 	public void onClick(View v)
 	{
 		// checks if button has already been used
-		if (!((Button) v).getText().toString().equals(""))
+		if (!(v).getTag().equals(""))
 		{
 			return;
 		}
 
 		// if it's player one's turn and they click a button, give the button a text of X or O
+		// Also store the change to preferences for state restore
 		if (player1Turn)
 		{
-			((Button) v).setText("X");
+			(v).setTag("X");
+			sharedPreferences.edit().putString(v.getId() + "_tag","X").apply();
+			((ImageButton) v).setImageResource(R.drawable.ic_gamepiece_x_red);
+			sharedPreferences.edit().putInt(v.getId() + "_image",R.drawable.ic_gamepiece_x_red).apply();
+			sharedPreferences.edit().putBoolean(v.getId() + "_isPlayed",true).apply();
 		}
 		else
 		{
-			((Button) v).setText("O");
+			(v).setTag("O");
+			sharedPreferences.edit().putString(v.getId() + "_tag","O").apply();
+			((ImageButton) v).setImageResource(R.drawable.ic_gamepiece_o_blue);
+			sharedPreferences.edit().putInt(v.getId() + "_image",R.drawable.ic_gamepiece_o_blue).apply();
+			sharedPreferences.edit().putBoolean(v.getId() + "_isPlayed",true).apply();
 		}
 
 		roundCount++;
@@ -104,17 +139,22 @@ public class RandomActivity extends Activity implements View.OnClickListener
 			{
 				player2Wins();
 			}
+			// Clear Preferences
+			sharedPreferences.edit().clear().apply();
 		}
 		else if (roundCount == 9)
 		{
 			// if no one wins and no more rounds left, it's a draw
 			draw();
+			// Clear preferences
+			sharedPreferences.edit().clear().apply();
 		}
 		else
 		{
 			// if no one won and there's no draw, change who's turn it is
 			// Pick next random player
 			chooseRandomPlayer();
+			sharedPreferences.edit().putBoolean("isPlayer1Turn",player1Turn).apply();
 		}
 	}
 
@@ -125,12 +165,12 @@ public class RandomActivity extends Activity implements View.OnClickListener
 	{
 		String[][] field = new String[3][3];
 
-		// loop through all the buttons and save the buttons text as a string, either X or O
+		// loop through all the imageButtons and save the imageButtons text as a string, either X or O
 		for (int i = 0; i < 3; i++)
 		{
 			for (int j = 0; j < 3; j++)
 			{
-				field[i][j] = buttons[i][j].getText().toString();
+				field[i][j] = imageButtons[i][j].getTag().toString();
 			}
 		}
 
@@ -220,11 +260,15 @@ public class RandomActivity extends Activity implements View.OnClickListener
 		{
 			for (int j = 0; j < 3; j++)
 			{
-				buttons[i][j].setText("");
+				imageButtons[i][j].setTag("");
+				imageButtons[i][j].setImageResource(0);
 			}
 		}
 
 		roundCount = 0;
+
+		// Reset preferences for sureity sake
+		sharedPreferences.edit().clear().apply();
 
 		// Pick next random player after board is reset
 		chooseRandomPlayer();

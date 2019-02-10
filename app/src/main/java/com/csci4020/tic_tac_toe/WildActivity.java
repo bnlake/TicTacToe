@@ -29,6 +29,12 @@ public class WildActivity extends Activity implements View.OnClickListener {
             {R.id.imageButton20, R.id.imageButton21, R.id.imageButton22}
     };
 
+    private int player1Points;
+    private int player2Points;
+
+    private TextView textViewPlayer1;
+    private TextView textViewPlayer2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -276,6 +282,7 @@ public class WildActivity extends Activity implements View.OnClickListener {
     }
 
     public void get2DIndex(int id){
+
         for(int i = 0; i < game2DArrayIds.length; i++){ // col
             for(int j = 0; j < game2DArrayIds[i].length; j++){ //row
                 if(game2DArrayIds[i][j] == id){
@@ -289,6 +296,7 @@ public class WildActivity extends Activity implements View.OnClickListener {
 
     // switches the players for each round by giving the text bold or removing bold
     public void switchPlayers(){
+
         if( currentPlayer == 0 ){
             currentPlayer = 1;
             ((TextView) findViewById(R.id.player_chaos)).setTypeface(Typeface.DEFAULT_BOLD);
@@ -298,5 +306,48 @@ public class WildActivity extends Activity implements View.OnClickListener {
             ((TextView) findViewById(R.id.player_order)).setTypeface(Typeface.DEFAULT_BOLD);
             ((TextView) findViewById(R.id.player_chaos)).setTypeface(Typeface.DEFAULT);
         }
+    }
+
+    private void player1Wins() {
+        player1Points++;
+        Toast.makeText(this, "Player 1 Wins!", Toast.LENGTH_SHORT).show();
+        updatePointsText(); // will update points
+        resetBoard(); // will reset the board
+    }
+
+    /**
+     * When player 2 wins, increment their points, display message, update the points text, and reset the board
+     */
+    private void player2Wins()
+    {
+        player2Points++;
+        Toast.makeText(this, "Player 2 Wins!", Toast.LENGTH_SHORT).show();
+        updatePointsText(); // will update points
+        resetBoard(); // will reset the board
+    }
+
+
+    private void draw() {
+
+        Toast.makeText(this, "It's a Draw!", Toast.LENGTH_SHORT).show();
+//        resetGame();
+    }
+
+    private void updatePointsText() {
+
+        textViewPlayer1.setText("Player 1: " + player1Points);
+        textViewPlayer2.setText("Player 2: " + player2Points);
+    }
+
+    private void resetGame() {
+
+    }
+
+    private void resetBoard() {
+
+        player1Points = 0;
+        player2Points = 0;
+        updatePointsText();
+        resetBoard();
     }
 }

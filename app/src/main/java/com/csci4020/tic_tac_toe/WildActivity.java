@@ -19,17 +19,10 @@ public class WildActivity extends Activity implements View.OnClickListener {
     private int playerOnePiece = R.drawable.letter_x;
     private int playerOnePiecesPlaced = 0;
 
-
     private int playerTwoPiece = R.drawable.letter_o;
     private int playerTwoPiecesPlaced = 0;
 
     private int currentPlayer = R.drawable.letter_x;
-
-    public int[] gameIds = {
-            R.id.imageButton00, R.id.imageButton10, R.id.imageButton20,
-            R.id.imageButton01, R.id.imageButton11, R.id.imageButton21,
-            R.id.imageButton02, R.id.imageButton12, R.id.imageButton22
-    };
 
     // Array for each column
     public int[][] game2DArrayIds = {
@@ -62,6 +55,29 @@ public class WildActivity extends Activity implements View.OnClickListener {
         // textViews to keep score
         textViewPlayer1 = findViewById(R.id.player_one);
         textViewPlayer2 = findViewById(R.id.player_two);
+
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt("player1Points", player1Points);
+        outState.putInt("player2Points", player2Points);
+        outState.putBoolean("gameOver", gameOver);
+        outState.putInt("playerOnePiecesPlaced", playerOnePiecesPlaced);
+        outState.putInt("playerTwoPiecesPlaced", playerTwoPiecesPlaced);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        player1Points = savedInstanceState.getInt("player1Points");
+        player2Points = savedInstanceState.getInt("player2Points");
+        gameOver = savedInstanceState.getBoolean("gameOver");
+        playerOnePiecesPlaced = savedInstanceState.getInt("playerOnePiecesPlaced");
+        playerTwoPiecesPlaced = savedInstanceState.getInt("playerTwoPiecesPlaced");
 
     }
 
@@ -338,15 +354,6 @@ public class WildActivity extends Activity implements View.OnClickListener {
         int totalPieces = playerOnePiecesPlaced + playerTwoPiecesPlaced;
         return totalPieces >= 9;
     }
-
-//    public int findIndexOfId(int id){
-//        for(int i = 0; i < gameIds.length; i++){
-//            if(gameIds[i] == id){
-//                return i;
-//            }
-//        }
-//        return -1;
-//    }
 
     public void get2DIndex(int id){
 

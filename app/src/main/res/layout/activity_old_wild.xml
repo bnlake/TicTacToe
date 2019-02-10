@@ -129,7 +129,7 @@
 
 
         <TextView
-            android:id="@+id/player_order"
+            android:id="@+id/player_one"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -148,7 +148,7 @@
 
 
         <TextView
-            android:id="@+id/player_chaos"
+            android:id="@+id/player_two"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"

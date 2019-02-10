@@ -84,7 +84,7 @@
         android:padding="10dp"
         android:scaleType="fitCenter"
         android:src="@drawable/letter_x"
-        app:layout_constraintBottom_toTopOf="@+id/player_order"
+        app:layout_constraintBottom_toTopOf="@+id/player_one"
         app:layout_constraintEnd_toStartOf="@+id/textView5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
@@ -116,13 +116,13 @@
         android:padding="10dp"
         android:scaleType="fitCenter"
         android:src="@drawable/letter_o"
-        app:layout_constraintBottom_toTopOf="@+id/player_chaos"
+        app:layout_constraintBottom_toTopOf="@+id/player_two"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView5"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
     <TextView
-        android:id="@+id/player_chaos"
+        android:id="@+id/player_two"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -140,7 +140,7 @@
         app:layout_constraintTop_toBottomOf="@+id/btn_o" />
 
     <TextView
-        android:id="@+id/player_order"
+        android:id="@+id/player_one"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"

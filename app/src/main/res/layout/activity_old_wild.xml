@@ -25,41 +25,26 @@
 
             <ImageButton
                 android:id="@+id/imageButton00"
-                android:layout_width="0dp"
+                android:layout_width="125dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/black_border"
-                android:scaleType="center"/>
+                android:scaleType="center" />
+
             <ImageButton
                 android:id="@+id/imageButton10"
-                android:layout_width="0dp"
+                android:layout_width="125dp"
                 android:layout_height="match_parent"
-                android:background="@drawable/black_border"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:background="@drawable/black_border" />
+
             <ImageButton
                 android:id="@+id/imageButton20"
-                android:layout_width="0dp"
+                android:layout_width="125dp"
                 android:layout_height="match_parent"
-                android:background="@drawable/black_border"
-                android:layout_weight="1"/>
-            <ImageButton
-                android:id="@+id/imageButton30"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/black_border"
-                android:layout_weight="1"/>
-            <ImageButton
-                android:id="@+id/imageButton40"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/black_border"
-                android:layout_weight="1"/>
-            <ImageButton
-                android:id="@+id/imageButton50"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/black_border"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:background="@drawable/black_border" />
+
         </TableRow>
 
         <TableRow
@@ -71,46 +56,24 @@
 
             <ImageButton
                 android:id="@+id/imageButton01"
-                android:layout_width="0dp"
+                android:layout_width="127dp"
                 android:layout_height="match_parent"
-                android:background="@drawable/black_border"
                 android:layout_weight="1"
-                />
+                android:background="@drawable/black_border" />
+
             <ImageButton
                 android:id="@+id/imageButton11"
-                android:layout_width="0dp"
+                android:layout_width="104dp"
                 android:layout_height="match_parent"
-                android:background="@drawable/black_border"
                 android:layout_weight="1"
-                />
+                android:background="@drawable/black_border" />
+
             <ImageButton
                 android:id="@+id/imageButton21"
-                android:layout_width="0dp"
+                android:layout_width="94dp"
                 android:layout_height="match_parent"
-                android:background="@drawable/black_border"
                 android:layout_weight="1"
-                />
-            <ImageButton
-                android:id="@+id/imageButton31"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/black_border"
-                android:layout_weight="1"
-                />
-            <ImageButton
-                android:id="@+id/imageButton41"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/black_border"
-                android:layout_weight="1"
-                />
-            <ImageButton
-                android:id="@+id/imageButton51"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/black_border"
-                android:layout_weight="1"
-                />
+                android:background="@drawable/black_border" />
 
         </TableRow>
 
@@ -122,199 +85,24 @@
 
             <ImageButton
                 android:id="@+id/imageButton02"
-                android:layout_width="0dp"
+                android:layout_width="125dp"
                 android:layout_height="match_parent"
-                android:background="@drawable/black_border"
                 android:layout_weight="1"
-                />
+                android:background="@drawable/black_border" />
+
             <ImageButton
                 android:id="@+id/imageButton12"
-                android:layout_width="0dp"
+                android:layout_width="125dp"
                 android:layout_height="match_parent"
-                android:background="@drawable/black_border"
                 android:layout_weight="1"
-                />
+                android:background="@drawable/black_border" />
+
             <ImageButton
                 android:id="@+id/imageButton22"
-                android:layout_width="0dp"
+                android:layout_width="125dp"
                 android:layout_height="match_parent"
-                android:background="@drawable/black_border"
                 android:layout_weight="1"
-                />
-            <ImageButton
-                android:id="@+id/imageButton32"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/black_border"
-                android:layout_weight="1"
-                />
-            <ImageButton
-                android:id="@+id/imageButton42"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/black_border"
-                android:layout_weight="1"
-                />
-            <ImageButton
-                android:id="@+id/imageButton52"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/black_border"
-                android:layout_weight="1"
-                />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:minHeight="60dp"
-            android:weightSum="6" >
-
-
-            <ImageButton
-                android:id="@+id/imageButton03"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/black_border"
-                android:layout_weight="1"
-                />
-            <ImageButton
-                android:id="@+id/imageButton13"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/black_border"
-                android:layout_weight="1"
-                />
-            <ImageButton
-                android:id="@+id/imageButton23"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/black_border"
-                android:layout_weight="1"
-                />
-            <ImageButton
-                android:id="@+id/imageButton33"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/black_border"
-                android:layout_weight="1"
-                />
-            <ImageButton
-                android:id="@+id/imageButton43"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/black_border"
-                android:layout_weight="1"
-                />
-            <ImageButton
-                android:id="@+id/imageButton53"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/black_border"
-                android:layout_weight="1"
-                />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:minHeight="60dp"
-            android:weightSum="6" >
-
-            <ImageButton
-                android:id="@+id/imageButton04"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/black_border"
-                android:layout_weight="1"
-                />
-            <ImageButton
-                android:id="@+id/imageButton14"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/black_border"
-                android:layout_weight="1"
-                />
-            <ImageButton
-                android:id="@+id/imageButton24"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/black_border"
-                android:layout_weight="1"
-                />
-            <ImageButton
-                android:id="@+id/imageButton34"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/black_border"
-                android:layout_weight="1"
-                />
-            <ImageButton
-                android:id="@+id/imageButton44"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/black_border"
-                android:layout_weight="1"
-                />
-            <ImageButton
-                android:id="@+id/imageButton54"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/black_border"
-                android:layout_weight="1"
-                />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:minHeight="60dp"
-            android:weightSum="6" >
-
-            <ImageButton
-                android:id="@+id/imageButton05"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/black_border"
-                android:layout_weight="1"
-                />
-            <ImageButton
-                android:id="@+id/imageButton15"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/black_border"
-                android:layout_weight="1"
-                />
-            <ImageButton
-                android:id="@+id/imageButton25"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/black_border"
-                android:layout_weight="1"
-                />
-            <ImageButton
-                android:id="@+id/imageButton35"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/black_border"
-                android:layout_weight="1"
-                />
-            <ImageButton
-                android:id="@+id/imageButton45"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/black_border"
-                android:layout_weight="1"
-                />
-            <ImageButton
-                android:id="@+id/imageButton55"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/black_border"
-                android:layout_weight="1"
-                />
+                android:background="@drawable/black_border" />
 
         </TableRow>
 

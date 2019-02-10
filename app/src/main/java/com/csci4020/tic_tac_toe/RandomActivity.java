@@ -57,7 +57,7 @@ public class RandomActivity extends Activity implements View.OnClickListener
 			chooseRandomPlayer();
 
 		textViewPlayer1 = findViewById(R.id.text_view_p1);
-		textViewPlayer2 = findViewById(R.id.player_two);
+		textViewPlayer2 = findViewById(R.id.player_chaos);
 
 
 

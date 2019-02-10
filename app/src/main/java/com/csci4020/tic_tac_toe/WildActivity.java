@@ -32,7 +32,7 @@ public class WildActivity extends Activity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_old_wild);
+        setContentView(R.layout.activity_wild);
 
         // set up all the listeners for the buttons
         setupButtonListener();

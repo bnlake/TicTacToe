@@ -16,6 +16,8 @@
         android:layout_marginStart="8dp"
         android:text="Each turn is randomized. Press the Random button to know who's turn is next!"
         android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,11 +29,13 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="10dp"
         android:layout_weight="1"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/game_description">
 
         <ImageButton
-            android:id="@+id/button_00"
+            android:id="@+id/imageButton00"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
@@ -43,7 +47,7 @@
             android:textSize="60sp" />
 
         <ImageButton
-            android:id="@+id/button_01"
+            android:id="@+id/imageButton10"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
@@ -55,7 +59,7 @@
             android:textSize="60sp" />
 
         <ImageButton
-            android:id="@+id/button_02"
+            android:id="@+id/imageButton20"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
@@ -74,47 +78,56 @@
         android:layout_height="37dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="5dp"
         android:background="@drawable/white_button_black_border"
         android:padding="10dp"
         android:scaleType="fitCenter"
         android:src="@drawable/letter_x"
-        app:layout_constraintBottom_toTopOf="@+id/player_one"
-        app:layout_constraintEnd_toStartOf="@+id/textView5" />
+        app:layout_constraintBottom_toTopOf="@+id/player_order"
+        app:layout_constraintEnd_toStartOf="@+id/textView5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
     <TextView
         android:id="@+id/textView5"
-        android:layout_width="62dp"
+        android:layout_width="wrap_content"
         android:layout_height="39dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:paddingBottom="4dp"
         android:paddingTop="4dp"
         android:text="Using"
         android:textAlignment="center"
         android:textColor="@android:color/black"
         android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
-        tools:layout_editor_absoluteX="146dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_o"
+        app:layout_constraintStart_toEndOf="@+id/btn_x"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
     <ImageButton
         android:id="@+id/btn_o"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="5dp"
         android:background="@drawable/white_button_no_black_border"
         android:padding="10dp"
         android:scaleType="fitCenter"
         android:src="@drawable/letter_o"
-        app:layout_constraintBottom_toTopOf="@+id/player_two"
+        app:layout_constraintBottom_toTopOf="@+id/player_chaos"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView5"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
     <TextView
-        android:id="@+id/player_two"
+        android:id="@+id/player_chaos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginTop="10dp"
         android:paddingBottom="2dp"
         android:paddingTop="2dp"
         android:text="Player 2: 0"
@@ -123,10 +136,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.899"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_o" />
 
     <TextView
-        android:id="@+id/player_one"
+        android:id="@+id/player_order"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -140,7 +154,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.098"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_x" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -148,13 +163,14 @@
         android:layout_height="110dp"
         android:layout_marginStart="8dp"
         android:layout_weight="1"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <ImageButton
-            android:id="@+id/button_10"
+            android:id="@+id/imageButton01"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
@@ -166,7 +182,7 @@
             android:textSize="60sp" />
 
         <ImageButton
-            android:id="@+id/button_11"
+            android:id="@+id/imageButton11"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
@@ -178,7 +194,7 @@
             android:textSize="60sp" />
 
         <ImageButton
-            android:id="@+id/button_12"
+            android:id="@+id/imageButton21"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
@@ -204,7 +220,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
         <ImageButton
-            android:id="@+id/button_20"
+            android:id="@+id/imageButton02"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
@@ -216,7 +232,7 @@
             android:textSize="60sp" />
 
         <ImageButton
-            android:id="@+id/button_21"
+            android:id="@+id/imageButton12"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
@@ -228,7 +244,7 @@
             android:textSize="60sp" />
 
         <ImageButton
-            android:id="@+id/button_22"
+            android:id="@+id/imageButton22"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="5dp"

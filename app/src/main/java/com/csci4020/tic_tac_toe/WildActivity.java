@@ -12,7 +12,15 @@ import java.lang.reflect.Type;
 
 public class WildActivity extends Activity implements View.OnClickListener {
 
-    private int currentPiece = R.drawable.letter_x, currentPlayer = 0, piecesPlaced = 0;
+//    private int currentPiece = R.drawable.letter_x, currentPlayer = 0, piecesPlaced = 0;
+    private int playerOnePiece = R.drawable.letter_x;
+    private int playerOneNumber = 0;
+    private int playerOnePiecesPlaced = 0;
+
+    private int playerTwoPiece = R.drawable.letter_o;
+    private int playerTwoNumber = 1 ;
+    private int playerTwoPiecesPlaced = 0;
+
     private boolean[] gameBoardFlags = new boolean[9];
     private boolean gameOver = false;
     private int[][] gameBoardSquares = new int[3][3];
@@ -64,12 +72,12 @@ public class WildActivity extends Activity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btn_x:
-                currentPiece = R.drawable.letter_x;
+                playerOnePiece = R.drawable.letter_x;
                 ((ImageButton) findViewById(R.id.btn_x)).setBackgroundResource(R.drawable.white_button_black_border);
                 ((ImageButton) findViewById(R.id.btn_o)).setBackgroundResource(R.drawable.white_button_no_black_border);
                 break;
             case R.id.btn_o:
-                currentPiece = R.drawable.letter_o;
+                playerTwoPiece = R.drawable.letter_o;
                 ((ImageButton) findViewById(R.id.btn_x)).setBackgroundResource(R.drawable.white_button_no_black_border);
                 ((ImageButton) findViewById(R.id.btn_o)).setBackgroundResource(R.drawable.white_button_black_border);
                 break;
@@ -119,17 +127,20 @@ public class WildActivity extends Activity implements View.OnClickListener {
             return;
         }
 
-        ((ImageButton) findViewById(id)).setImageResource(currentPiece);
+//        ((ImageButton) findViewById(id)).setImageResource(currentPiece);
+        ((ImageButton) findViewById(id)).setImageResource(playerOnePiece);
 
         // the current piece's column and row
-        gameBoardSquares[Col2DIndex][Row2DIndex] = currentPiece;
+//        gameBoardSquares[Col2DIndex][Row2DIndex] = currentPiece;
+        gameBoardSquares[Col2DIndex][Row2DIndex] = playerOnePiece;
 
         int consecutivePieces = 1;
         int pastImage = -1;
 
         // iterate through each row of the 2D column index
         for(int i = 0; i < gameBoardSquares.length; i++){
-            if (gameBoardSquares[Col2DIndex][i] == pastImage && gameBoardSquares[Col2DIndex][i] == currentPiece){
+//            if (gameBoardSquares[Col2DIndex][i] == pastImage && gameBoardSquares[Col2DIndex][i] == currentPiece){
+            if (gameBoardSquares[Col2DIndex][i] == pastImage && gameBoardSquares[Col2DIndex][i] == playerOnePiece){
                 consecutivePieces++;
             } else {
                 consecutivePieces = 1;
@@ -149,13 +160,23 @@ public class WildActivity extends Activity implements View.OnClickListener {
 
         // iterate through each row of the 2D row index
         for(int i = 0; i < gameBoardSquares.length; i++){
-            if (gameBoardSquares[i][Row2DIndex] == pastImage && gameBoardSquares[i][Row2DIndex] == currentPiece){
-                consecutivePieces++;
+//            if (gameBoardSquares[i][Row2DIndex] == pastImage && gameBoardSquares[i][Row2DIndex] == currentPiece){
+//                consecutivePieces++;
+//            } else {
+//                consecutivePieces = 1;
+//            }
+//
+//            pastImage = gameBoardSquares[i][Row2DIndex];
+
+            if (gameBoardSquares[i][Row2DIndex] == pastImage && gameBoardSquares[i][Row2DIndex] == playerOnePiece){
+                playerOnePiecesPlaced++;
+//                consecutivePieces++;
             } else {
-                consecutivePieces = 1;
+//                consecutivePieces = 1;
             }
 
             pastImage = gameBoardSquares[i][Row2DIndex];
+
 
             if (consecutivePieces == 3){
                 // we have a winner

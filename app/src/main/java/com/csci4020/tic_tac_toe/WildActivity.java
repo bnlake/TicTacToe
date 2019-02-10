@@ -8,6 +8,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Type;
+
 public class WildActivity extends Activity implements View.OnClickListener {
 
     private int currentPiece = R.drawable.letter_x, currentPlayer = 0, piecesPlaced = 0;
@@ -52,6 +54,10 @@ public class WildActivity extends Activity implements View.OnClickListener {
                 gameBoardSquares[i][j] = R.drawable.white_square;
             }
         }
+
+        textViewPlayer1 = findViewById(R.id.player_order);
+        textViewPlayer2 = findViewById(R.id.player_chaos);
+
     }
 
     @Override
@@ -83,6 +89,7 @@ public class WildActivity extends Activity implements View.OnClickListener {
                 R.id.imageButton00, R.id.imageButton01, R.id.imageButton02,
                 R.id.imageButton10, R.id.imageButton11, R.id.imageButton12,
                 R.id.imageButton20, R.id.imageButton21, R.id.imageButton22,
+
         };
 
         for (int i = 0; i < ids.length; i++) {
@@ -132,7 +139,8 @@ public class WildActivity extends Activity implements View.OnClickListener {
 
             if (consecutivePieces == 3){
                 // game over
-                endGame("Order");
+                player1Wins();
+//                endGame("Order");
             }
         }
 
@@ -151,7 +159,8 @@ public class WildActivity extends Activity implements View.OnClickListener {
 
             if (consecutivePieces == 3){
                 // we have a winner
-                endGame("Order");
+                player1Wins();
+//                endGame("Order");
             }
         }
 
@@ -216,7 +225,8 @@ public class WildActivity extends Activity implements View.OnClickListener {
                 }
                 if(i == game2DArrayIds.length-2){
                     // game over
-                    endGame("Order");
+                    player1Wins();
+//                    endGame("Order");
                 }
             }
         } else
@@ -231,7 +241,8 @@ public class WildActivity extends Activity implements View.OnClickListener {
                 pastImage = gameBoardSquares[k][i];
                 if (consecutivePieces == 3){
                     // game over
-                    endGame("Order");
+                    player1Wins();
+//                    endGame("Order");
                 }
             }
         } else if ( (Col2DIndex + Row2DIndex) == 3){
@@ -242,7 +253,8 @@ public class WildActivity extends Activity implements View.OnClickListener {
                 }
                 if(i == game2DArrayIds.length-2){
                     // game over
-                    endGame("Order");
+                    player1Wins();
+//                    endGame("Order");
                 }
             }
         }
@@ -260,7 +272,8 @@ public class WildActivity extends Activity implements View.OnClickListener {
         return piecesPlaced >= 9;
     }
 
-    // game over
+    // TODO: Can probably delete this
+    // game over.
     public void endGame(String winner){
         gameOver = true;
         if (allPiecesUsed()) {
@@ -299,12 +312,18 @@ public class WildActivity extends Activity implements View.OnClickListener {
 
         if( currentPlayer == 0 ){
             currentPlayer = 1;
-            ((TextView) findViewById(R.id.player_chaos)).setTypeface(Typeface.DEFAULT_BOLD);
-            ((TextView) findViewById(R.id.player_order)).setTypeface(Typeface.DEFAULT);
+
+            textViewPlayer1.setTypeface(Typeface.DEFAULT_BOLD);
+            textViewPlayer2.setTypeface(Typeface.DEFAULT);
+//            ((TextView) findViewById(R.id.player_chaos)).setTypeface(Typeface.DEFAULT_BOLD);
+//            ((TextView) findViewById(R.id.player_order)).setTypeface(Typeface.DEFAULT);
         } else {
             currentPlayer = 0;
-            ((TextView) findViewById(R.id.player_order)).setTypeface(Typeface.DEFAULT_BOLD);
-            ((TextView) findViewById(R.id.player_chaos)).setTypeface(Typeface.DEFAULT);
+
+            textViewPlayer1.setTypeface(Typeface.DEFAULT_BOLD);
+            textViewPlayer2.setTypeface(Typeface.DEFAULT);
+//            ((TextView) findViewById(R.id.player_order)).setTypeface(Typeface.DEFAULT_BOLD);
+//            ((TextView) findViewById(R.id.player_chaos)).setTypeface(Typeface.DEFAULT);
         }
     }
 
@@ -339,15 +358,22 @@ public class WildActivity extends Activity implements View.OnClickListener {
         textViewPlayer2.setText("Player 2: " + player2Points);
     }
 
-    private void resetGame() {
-
-    }
+    // TODO: If we want to let user reset the game
+//    private void resetGame() {
+//
+//        player1Points = 0;
+//        player2Points = 0;
+//        updatePointsText();
+//        resetBoard();
+//    }
 
     private void resetBoard() {
 
+        // reset game and points
         player1Points = 0;
         player2Points = 0;
         updatePointsText();
         resetBoard();
+
     }
 }

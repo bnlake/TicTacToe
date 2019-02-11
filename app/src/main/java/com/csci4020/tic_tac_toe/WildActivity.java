@@ -119,9 +119,8 @@ public class WildActivity extends Activity
 			// Split to String array.
 			// [0] = Player
 			// [1] = Piece
-			Toast.makeText(getApplicationContext(),"Runoff",Toast.LENGTH_LONG).show();
+//TODO DISCOVERED A RUN OFF. THE ONACTIVITYRESULT WILL HAVE TO PROCESS ALL OF THE FOLLOWING CODE
 /*
-			//TODO THIS MIGHT BE A RUN OFF SITUATION AND NOT WAITING FOR NEW ACTIVITY TO FINISH
 			String[] resultStringArray = v.getTag().toString().split("|");
 			//
 			if (resultStringArray[1].equals("X"))
@@ -144,6 +143,7 @@ public class WildActivity extends Activity
 			// Split to String array.
 			// [0] = Player
 			// [1] = Piece
+//TODO SEE ABOVE IF STATEMENT. DEAL WITH RUNOFF
 			String[] resultStringArray = v.getTag().toString().split("|");
 			//
 			if (resultStringArray[1].equals("X"))

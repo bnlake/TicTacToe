@@ -3,22 +3,23 @@ package com.csci4020.tic_tac_toe;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 public class ChoosePieceActivity extends Activity
 		implements View.OnClickListener
 {
-	Intent passedIntent;
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_choosepiece);
 
+		Log.i("bnlake","Made it to the new app");
 		//Retrieve the player from intent
 		int currentPlayer;
-		passedIntent = getIntent();
+		Intent passedIntent = getIntent();
 		if (passedIntent.hasExtra("currentPlayer"))
 		{
 			currentPlayer = passedIntent.getIntExtra("currentPlayer", clsGamePiece.PLAYER_A);

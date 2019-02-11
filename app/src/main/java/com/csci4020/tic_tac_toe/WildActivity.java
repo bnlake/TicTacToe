@@ -95,7 +95,10 @@ public class WildActivity extends Activity
 
 
 	/**
-	 * Change text when user presses a button and check if a player has won.
+	 * Open activity to let user choose which piece to play.
+	 * Logic after choice is made
+	 *
+	 * @param v Chosen piece location
 	 */
 	@Override
 	public void onClick(View v)
@@ -112,21 +115,45 @@ public class WildActivity extends Activity
 		// Also store the change to preferences for state restore
 		if (player1Turn)
 		{
-			//TODO MAYBE USE ANOTHER FUNCTION TO MINIMIZE REPEATED CODE.
-			//TODO COULD SEND THE PLAYER ID AS A PARAMETER
-			(v).setTag("X");
-			sharedPreferences.edit().putString(v.getId() + "_tag", "X").apply();
-			((ImageButton) v).setImageResource(R.drawable.ic_gamepiece_x_red);
-			sharedPreferences.edit().putInt(v.getId() + "_image", R.drawable.ic_gamepiece_x_red).apply();
-			sharedPreferences.edit().putBoolean(v.getId() + "_isPlayed", true).apply();
+			// Result from choosepiece activity should be similar to "A|O"
+			v.setTag(choosePieceActivity(clsGamePiece.PLAYER_A));
+			// Split to String array.
+			// [0] = Player
+			// [1] = Piece
+			String[] resultStringArray = v.getTag().toString().split("|");
+			//
+			if (resultStringArray[1].equals("X"))
+			{
+				((ImageView) v).setImageResource(R.drawable.ic_gamepiece_x_blue);
+				// Store the played piece in case screen is rotated
+				storePlayedPiece(R.drawable.ic_gamepiece_x_blue, v.getTag().toString(), v);
+			}
+			else
+			{
+				((ImageView) v).setImageResource(R.drawable.ic_gamepiece_o_blue);
+				storePlayedPiece(R.drawable.ic_gamepiece_o_blue, v.getTag().toString(), v);
+			}
 		}
 		else
 		{
-			(v).setTag("O");
-			sharedPreferences.edit().putString(v.getId() + "_tag", "O").apply();
-			((ImageButton) v).setImageResource(R.drawable.ic_gamepiece_o_blue);
-			sharedPreferences.edit().putInt(v.getId() + "_image", R.drawable.ic_gamepiece_o_blue).apply();
-			sharedPreferences.edit().putBoolean(v.getId() + "_isPlayed", true).apply();
+			// Result from choosepiece activity should be similar to "A|O"
+			v.setTag(choosePieceActivity(clsGamePiece.PLAYER_B));
+			// Split to String array.
+			// [0] = Player
+			// [1] = Piece
+			String[] resultStringArray = v.getTag().toString().split("|");
+			//
+			if (resultStringArray[1].equals("X"))
+			{
+				((ImageView) v).setImageResource(R.drawable.ic_gamepiece_x_red);
+				// Store the played piece in case screen is rotated
+				storePlayedPiece(R.drawable.ic_gamepiece_x_red, v.getTag().toString(), v);
+			}
+			else
+			{
+				((ImageView) v).setImageResource(R.drawable.ic_gamepiece_o_red);
+				storePlayedPiece(R.drawable.ic_gamepiece_o_red, v.getTag().toString(), v);
+			}
 		}
 
 		roundCount++;
@@ -155,17 +182,26 @@ public class WildActivity extends Activity
 		else
 		{
 			// if no one won and there's no draw, change who's turn it is
-			// Pick next random player
-			choosePlayer();
+			// Pick next player
+			if (player1Turn)
+				choosePlayer(clsGamePiece.PLAYER_B);
+			else
+				choosePlayer(clsGamePiece.PLAYER_A);
 			sharedPreferences.edit().putBoolean("isPlayer1Turn", player1Turn).apply();
 		}
 	}
 
-	private void choosePieceActivity(int currentPlayer)
+	/**
+	 * Start activity to let user pick which piece to play
+	 *
+	 * @param currentPlayer int
+	 * @return string tag for chosen piece
+	 */
+	private String choosePieceActivity(int currentPlayer)
 	{
-		Intent intent = new Intent(getApplicationContext(),ChoosePieceActivity.class);
-		intent.putExtra("currentPlayer",currentPlayer);
-		startActivityForResult(intent,0);
+		Intent intent = new Intent(getApplicationContext(), ChoosePieceActivity.class);
+		intent.putExtra("currentPlayer", currentPlayer);
+		startActivityForResult(intent, 0);
 	}
 
 
@@ -365,6 +401,29 @@ public class WildActivity extends Activity
 		{
 			((ImageView) findViewById(R.id.image_view_currentPlayer)).setImageResource(R.drawable.ic_gamepiece_x_blue);
 			player1Turn = true;
+			return true;
+		} catch (Exception e)
+		{
+			return false;
+		}
+	}
+
+	/**
+	 * Store a played piece into sharedpreferences. This restores the board
+	 * if the activity is paused for any reason
+	 *
+	 * @param image int drawable piece
+	 * @param tag   string tag
+	 * @param v     view to get the imageview id
+	 * @return boolean indicating success or not.
+	 */
+	private boolean storePlayedPiece(int image, String tag, View v)
+	{
+		try
+		{
+			sharedPreferences.edit().putString(v.getId() + "_tag", tag).apply();
+			sharedPreferences.edit().putInt(v.getId() + "_image", image).apply();
+			sharedPreferences.edit().putBoolean(v.getId() + "_isPlayed", true).apply();
 			return true;
 		} catch (Exception e)
 		{

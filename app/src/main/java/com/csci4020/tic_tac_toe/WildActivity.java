@@ -43,7 +43,7 @@ public class WildActivity extends Activity
 
 		// Need a way to restore state of moves. Shared Preferences seems to be ok
 		sharedPreferences = this.getSharedPreferences("tictactoewild", Context.MODE_PRIVATE);
-		// Restore current player or pick random player for first move.
+		// Restore current player or pick player A for first move.
 		if (sharedPreferences.contains("isPlayer1Turn"))
 		{
 			if (sharedPreferences.getBoolean("isPlayer1Turn", true))
@@ -75,7 +75,6 @@ public class WildActivity extends Activity
 				{
 					// Retrieve state objects. Error handle by using default null values (odd case)
 					imageButtons[r][c].setImageResource(sharedPreferences.getInt(resId + "_image", R.drawable.ic_gamepiece_placeholder));
-					//TODO FIND WAY TO IDENTIFY PLAYER AND PIECE (MAYBE A|X)
 					imageButtons[r][c].setTag(sharedPreferences.getString(resId + "_tag", ""));
 				}
 			}
@@ -96,7 +95,7 @@ public class WildActivity extends Activity
 
 
 	/**
-	 * Change text when user presses a button and check if a player has win.
+	 * Change text when user presses a button and check if a player has won.
 	 */
 	@Override
 	public void onClick(View v)

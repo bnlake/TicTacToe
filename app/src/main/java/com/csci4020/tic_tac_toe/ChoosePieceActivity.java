@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 public class ChoosePieceActivity extends Activity
-	implements View.OnClickListener
+		implements View.OnClickListener
 {
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -31,10 +31,10 @@ public class ChoosePieceActivity extends Activity
 		switch (currentPlayer)
 		{
 			case clsGamePiece.PLAYER_A:
-				setImageViews(R.drawable.ic_gamepiece_x_red, R.drawable.ic_gamepiece_o_red, "A")
+				setImageViews(R.drawable.ic_gamepiece_x_red, R.drawable.ic_gamepiece_o_red, "A");
 				break;
 			case clsGamePiece.PLAYER_B:
-				setImageViews(R.drawable.ic_gamepiece_x_blue,R.drawable.ic_gamepiece_o_blue,"B");
+				setImageViews(R.drawable.ic_gamepiece_x_blue, R.drawable.ic_gamepiece_o_blue, "B");
 				break;
 			default:
 				break;
@@ -48,7 +48,7 @@ public class ChoosePieceActivity extends Activity
 	 *
 	 * @param imageResource_X int drawable
 	 * @param imageResource_O int drawable
-	 * @param playerTag String Player A or B
+	 * @param playerTag       String Player A or B
 	 * @return boolean indicating success or not
 	 */
 	private boolean setImageViews(int imageResource_X, int imageResource_O, String playerTag)
@@ -66,11 +66,17 @@ public class ChoosePieceActivity extends Activity
 		}
 	}
 
+	/**
+	 * This activity has one purpose. Pick one ImageView and return the choice
+	 *
+	 * @param view Chosen piece
+	 */
 	@Override
 	public void onClick(View view)
 	{
 		Intent intent = new Intent();
-		// TODO PUT TAG AS EXTRA
-		// TODO SET RESULT WITH INTENT
+		intent.putExtra("tag", view.getTag().toString());
+		setResult(RESULT_OK, intent);
+		finish();
 	}
 }

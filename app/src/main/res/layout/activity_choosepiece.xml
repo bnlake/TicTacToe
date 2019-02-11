@@ -26,18 +26,22 @@
             android:layout_height="wrap_content">
 
             <ImageView
+                android:id="@+id/image_view_X"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_margin="10dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_gamepiece_x_blue" />
+                android:src="@drawable/ic_gamepiece_x_blue"
+                android:tag="A|X" />
 
             <ImageView
+                android:id="@+id/image_view_O"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_margin="10dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_gamepiece_o_blue" />
+                android:src="@drawable/ic_gamepiece_o_blue"
+                android:tag="A|O" />
         </LinearLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

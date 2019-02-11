@@ -8,6 +8,7 @@ Brian Lake
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -160,6 +161,14 @@ public class WildActivity extends Activity
 			sharedPreferences.edit().putBoolean("isPlayer1Turn", player1Turn).apply();
 		}
 	}
+
+	private void choosePieceActivity(int currentPlayer)
+	{
+		Intent intent = new Intent(getApplicationContext(),ChoosePieceActivity.class);
+		intent.putExtra("currentPlayer",currentPlayer);
+		startActivityForResult(intent,0);
+	}
+
 
 	/**
 	 * Check the board to see if either player 1 or player 2 has won

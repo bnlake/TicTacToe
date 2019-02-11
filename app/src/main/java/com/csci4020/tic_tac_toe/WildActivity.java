@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -109,17 +110,18 @@ public class WildActivity extends Activity
 			return;
 		}
 
-		// TODO OPEN MODAL ACTIVITY TO LET USER PICK WHICH PIECE TO PLAY
-		// TODO USE ACTIVITYRESULTS TO GET MODAL TO DISPLAY PROPER COLOR FOR CURRENT PLAYER
 		// if it's player one's turn and they click a button, give the button a text of X or O
 		// Also store the change to preferences for state restore
 		if (player1Turn)
 		{
 			// Result from choosepiece activity should be similar to "A|O"
-			v.setTag(choosePieceActivity(clsGamePiece.PLAYER_A));
+			choosePieceActivity(clsGamePiece.PLAYER_A, v.getId());
 			// Split to String array.
 			// [0] = Player
 			// [1] = Piece
+			Toast.makeText(getApplicationContext(),"Runoff",Toast.LENGTH_LONG).show();
+/*
+			//TODO THIS MIGHT BE A RUN OFF SITUATION AND NOT WAITING FOR NEW ACTIVITY TO FINISH
 			String[] resultStringArray = v.getTag().toString().split("|");
 			//
 			if (resultStringArray[1].equals("X"))
@@ -133,11 +135,12 @@ public class WildActivity extends Activity
 				((ImageView) v).setImageResource(R.drawable.ic_gamepiece_o_blue);
 				storePlayedPiece(R.drawable.ic_gamepiece_o_blue, v.getTag().toString(), v);
 			}
+*/
 		}
 		else
 		{
 			// Result from choosepiece activity should be similar to "A|O"
-			v.setTag(choosePieceActivity(clsGamePiece.PLAYER_B));
+			choosePieceActivity(clsGamePiece.PLAYER_B, v.getId());
 			// Split to String array.
 			// [0] = Player
 			// [1] = Piece
@@ -195,15 +198,38 @@ public class WildActivity extends Activity
 	 * Start activity to let user pick which piece to play
 	 *
 	 * @param currentPlayer int
-	 * @return string tag for chosen piece
 	 */
-	private String choosePieceActivity(int currentPlayer)
+	private void choosePieceActivity(int currentPlayer, int viewId)
 	{
 		Intent intent = new Intent(getApplicationContext(), ChoosePieceActivity.class);
 		intent.putExtra("currentPlayer", currentPlayer);
+		// Use sharedpreferences to remember the view that was pressed
+		sharedPreferences.edit().putInt("view", viewId).apply();
 		startActivityForResult(intent, 0);
 	}
 
+	/**
+	 * Process the returned information from choosepiece activity
+	 * @param requestCode
+	 * @param resultCode
+	 * @param data
+	 */
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		if (resultCode == RESULT_OK)
+		{
+			if (!data.hasExtra("tag"))
+				Log.i("====", "Some how a choice wasn't made but the result returned ok");
+			else
+			{
+				if (sharedPreferences.contains("view"))
+					((ImageView) findViewById(sharedPreferences.getInt("view", 0))).setTag(data.getStringExtra("tag"));
+			}
+		}
+		else
+			Log.i("===", "Result returned other than OK");
+	}
 
 	/**
 	 * Check the board to see if either player 1 or player 2 has won
@@ -211,10 +237,6 @@ public class WildActivity extends Activity
 	 */
 	private boolean checkForWin()
 	{
-		/*
-		 TODO EXTRACT WHICH SHAPE WAS PLAYED AND NOT JUST THE COLOR. A WIN DOESN'T MATTER WHICH COLORS
-		ARE IN A ROW
-		*/
 		String[][] field = new String[3][3];
 
 		// loop through all the imageButtons and save the imageButtons text as a string, either X or O
@@ -222,8 +244,9 @@ public class WildActivity extends Activity
 		{
 			for (int j = 0; j < 3; j++)
 			{
-				//TODO NEED TO STRIP THE SHAPE FROM WHO PLAYED IT BEFORE STORING IN ARRAY
-				field[i][j] = imageButtons[i][j].getTag().toString();
+				// Extract the piece from the tag
+				String[] temp = imageButtons[i][j].getTag().toString().split("|");
+				field[i][j] = temp[1];
 			}
 		}
 

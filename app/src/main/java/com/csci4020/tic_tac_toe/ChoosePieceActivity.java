@@ -9,6 +9,7 @@ import android.widget.ImageView;
 public class ChoosePieceActivity extends Activity
 		implements View.OnClickListener
 {
+	Intent passedIntent;
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -17,10 +18,10 @@ public class ChoosePieceActivity extends Activity
 
 		//Retrieve the player from intent
 		int currentPlayer;
-		Intent intent = getIntent();
-		if (intent.hasExtra("currentPlayer"))
+		passedIntent = getIntent();
+		if (passedIntent.hasExtra("currentPlayer"))
 		{
-			currentPlayer = intent.getIntExtra("currentPlayer", clsGamePiece.PLAYER_A);
+			currentPlayer = passedIntent.getIntExtra("currentPlayer", clsGamePiece.PLAYER_A);
 		}
 		else
 		{

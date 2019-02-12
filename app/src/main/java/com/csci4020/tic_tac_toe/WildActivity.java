@@ -154,6 +154,7 @@ public class WildActivity extends Activity
 				Log.i("====", "Some how a choice wasn't made but the result returned ok");
 			else
 			{
+				sharedPreferences = this.getSharedPreferences("tictactoewild", Context.MODE_PRIVATE);
 				if (sharedPreferences.contains("view"))
 				{
 					// Get ImageView placeholder
@@ -164,12 +165,14 @@ public class WildActivity extends Activity
 
 					// Update the placeholder with the proper piece that was chosen
 					// Split to String array.
-					// [0] = Player
-					// [1] = Piece
+					// [0] = ""
+					// [1] = Player
+					// [2] = |
+					// [3] = Piece
 					String[] resultStringArray = imageView.getTag().toString().split("|");
 					if (player1Turn)
 					{
-						if (resultStringArray[1].equals("X"))
+						if (resultStringArray[3].equals("X"))
 						{
 							imageView.setImageResource(R.drawable.ic_gamepiece_x_blue);
 							// Store the played piece in case screen is rotated
@@ -183,7 +186,7 @@ public class WildActivity extends Activity
 					}
 					else
 					{
-						if (resultStringArray[1].equals("X"))
+						if (resultStringArray[3].equals("X"))
 						{
 							imageView.setImageResource(R.drawable.ic_gamepiece_x_red);
 							// Store the played piece in case screen is rotated
@@ -261,7 +264,11 @@ public class WildActivity extends Activity
 			{
 				// Extract the piece from the tag
 				String[] temp = imageButtons[i][j].getTag().toString().split("|");
-				field[i][j] = temp[1];
+				// Handle non-played placeholders
+				if (temp.length == 1)
+					field[i][j] = "";
+				else
+					field[i][j] = temp[3];
 			}
 		}
 

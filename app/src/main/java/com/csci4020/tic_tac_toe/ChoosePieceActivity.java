@@ -16,7 +16,6 @@ public class ChoosePieceActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_choosepiece);
 
-		Log.i("bnlake","Made it to the new app");
 		//Retrieve the player from intent
 		int currentPlayer;
 		Intent passedIntent = getIntent();
@@ -33,16 +32,17 @@ public class ChoosePieceActivity extends Activity
 		switch (currentPlayer)
 		{
 			case clsGamePiece.PLAYER_A:
-				setImageViews(R.drawable.ic_gamepiece_x_red, R.drawable.ic_gamepiece_o_red, "A");
+				setImageViews(R.drawable.ic_gamepiece_x_blue, R.drawable.ic_gamepiece_o_blue, "A");
 				break;
 			case clsGamePiece.PLAYER_B:
-				setImageViews(R.drawable.ic_gamepiece_x_blue, R.drawable.ic_gamepiece_o_blue, "B");
+				setImageViews(R.drawable.ic_gamepiece_x_red, R.drawable.ic_gamepiece_o_red, "B");
 				break;
 			default:
 				break;
 		}
 
 		findViewById(R.id.image_view_X).setOnClickListener(this);
+		findViewById(R.id.image_view_O).setOnClickListener(this);
 	}
 
 	/**

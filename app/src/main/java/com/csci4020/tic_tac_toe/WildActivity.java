@@ -1,16 +1,24 @@
 package com.csci4020.tic_tac_toe;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class WildActivity extends Activity implements View.OnClickListener {
 
+    private SharedPreferences sharedPreferences;
+    public static final String CURRENT_PLAYER_KEY="currentPlayer";
+    public static final String PLAYER_1_POINTS="p1P";
+    public static final String PLAYER_2_POINTS="p2P";
+    public static final String IMAGE_TAG="_image";
     private boolean gameOver = false;
     private int[][] gameBoardSquares = new int[3][3];
     private int Col2DIndex = 0;
@@ -45,6 +53,10 @@ public class WildActivity extends Activity implements View.OnClickListener {
         // set up all the listeners for the buttons
         setupButtonListener();
 
+
+
+
+
         // set all squares to empty from the beginning
         for(int i = 0; i < game2DArrayIds.length; i++){ // col
             for(int j = 0; j < game2DArrayIds[i].length; j++){ //row
@@ -56,28 +68,68 @@ public class WildActivity extends Activity implements View.OnClickListener {
         textViewPlayer1 = findViewById(R.id.player_one);
         textViewPlayer2 = findViewById(R.id.player_two);
 
+        //saved instance state
+
+
+        sharedPreferences = this.getSharedPreferences("tictactoewild", Context.MODE_PRIVATE);
+
+        if(sharedPreferences.getInt(CURRENT_PLAYER_KEY,0)!=0){
+
+
+
+            currentPlayer=sharedPreferences.getInt(CURRENT_PLAYER_KEY,0);
+            player1Points= sharedPreferences.getInt(PLAYER_1_POINTS,0);
+            player2Points= sharedPreferences.getInt(PLAYER_2_POINTS,0);
+            updatePointsText();
+
+
+
+
+            ImageView imageView;
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+
+
+
+
+                    int noId=sharedPreferences.getInt(game2DArrayIds[i][j]+IMAGE_TAG,0);
+                    if(noId!=0) {
+                        imageView = findViewById(game2DArrayIds[i][j]);
+
+                        gameBoardSquares[i][j]=noId;
+                        imageView.setImageResource(noId);
+                    }
+
+
+                }
+            }
+        }
+        else
+            sharedPreferences.edit().putInt(CURRENT_PLAYER_KEY,currentPlayer).apply();
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putInt("player1Points", player1Points);
+    /*    outState.putInt("player1Points", player1Points);
         outState.putInt("player2Points", player2Points);
         outState.putBoolean("gameOver", gameOver);
         outState.putInt("playerOnePiecesPlaced", playerOnePiecesPlaced);
-        outState.putInt("playerTwoPiecesPlaced", playerTwoPiecesPlaced);
+        outState.putInt("playerTwoPiecesPlaced", playerTwoPiecesPlaced);*/
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
 
-        player1Points = savedInstanceState.getInt("player1Points");
+   /*     player1Points = savedInstanceState.getInt("player1Points");
         player2Points = savedInstanceState.getInt("player2Points");
         gameOver = savedInstanceState.getBoolean("gameOver");
         playerOnePiecesPlaced = savedInstanceState.getInt("playerOnePiecesPlaced");
-        playerTwoPiecesPlaced = savedInstanceState.getInt("playerTwoPiecesPlaced");
+        playerTwoPiecesPlaced = savedInstanceState.getInt("playerTwoPiecesPlaced");*/
 
     }
 
@@ -90,6 +142,7 @@ public class WildActivity extends Activity implements View.OnClickListener {
                 ((ImageButton) findViewById(R.id.btn_o)).setBackgroundResource(R.drawable.white_button_no_black_border);
 
                 currentPlayer = R.drawable.letter_x;
+                sharedPreferences.edit().putInt(CURRENT_PLAYER_KEY,currentPlayer).apply();
 
                 break;
             case R.id.btn_o:
@@ -98,6 +151,7 @@ public class WildActivity extends Activity implements View.OnClickListener {
                 ((ImageButton) findViewById(R.id.btn_o)).setBackgroundResource(R.drawable.white_button_black_border);
 
                 currentPlayer = R.drawable.letter_o;
+                sharedPreferences.edit().putInt(CURRENT_PLAYER_KEY,currentPlayer).apply();
 
                 break;
             case R.id.imageButton00: case R.id.imageButton01: case R.id.imageButton02:
@@ -142,7 +196,9 @@ public class WildActivity extends Activity implements View.OnClickListener {
             return;
         }
 
+
         ((ImageButton) findViewById(id)).setImageResource(currentPlayer);
+        sharedPreferences.edit().putInt(id+IMAGE_TAG,currentPlayer).apply();
 
         // the current piece's column and row
         gameBoardSquares[Col2DIndex][Row2DIndex] = currentPlayer;
@@ -337,15 +393,17 @@ public class WildActivity extends Activity implements View.OnClickListener {
             }
         }
 
+        // if board is completely filled with pieces
+        if(allPiecesUsed()) {
+            draw();
+        }
+
         // TODO: may be able to remove this
 //        playerOnePiecesPlaced++;
 //        playerTwoPiecesPlaced++;
 
 
-        // if board is completely filled with pieces
-        if(allPiecesUsed()) {
-            draw();
-        }
+
     }
 
     // if no more pieces can be used
@@ -397,6 +455,11 @@ public class WildActivity extends Activity implements View.OnClickListener {
 
         textViewPlayer1.setText("Player 1: " + player1Points);
         textViewPlayer2.setText("Player 2: " + player2Points);
+
+        sharedPreferences.edit().putInt(PLAYER_1_POINTS,player1Points).apply();
+        sharedPreferences.edit().putInt(PLAYER_2_POINTS,player2Points).apply();
+
+
     }
 
     // TODO: If we want to let user reset the game
@@ -406,21 +469,27 @@ public class WildActivity extends Activity implements View.OnClickListener {
         player2Points = 0;
         updatePointsText();
         resetBoard();
+        sharedPreferences.edit().clear().apply();
     }
 
     // TODO: Removing images from the board.
     private void resetBoard() {
 
-//        for (int i = 0; i < 3; i++)
-//        {
-//            for (int j = 0; j < 3; j++)
-//            {
-//                gameBoardSquares[i][j] = R.drawable.white_square;
-//
-////                imageButtons[i][j].setTag("");
-////                imageButtons[i][j].setImageResource(0);
-//            }
-//        }
+        ImageView imageView;
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                gameBoardSquares[i][j] = R.drawable.white_square;
+
+
+                sharedPreferences.edit().putInt(game2DArrayIds[i][j]+IMAGE_TAG,0).apply();
+                imageView=findViewById(game2DArrayIds[i][j]);
+                imageView.setTag("");
+                //  imageView=findViewById(game2DArrayIds[i][j]);
+                imageView.setImageResource(0);
+            }
+        }
 
         for(int i = 0; i < game2DArrayIds.length; i++){ // col
             for(int j = 0; j < game2DArrayIds[i].length; j++){ //row
@@ -429,5 +498,11 @@ public class WildActivity extends Activity implements View.OnClickListener {
         }
 
         currentPlayer = R.drawable.letter_x;
+    }
+
+    public void reSetOnClick(View view) {
+
+
+        resetGame();
     }
 }

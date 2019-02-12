@@ -9,7 +9,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"/>
 
     <TextView
         android:id="@+id/game_description"
@@ -282,5 +282,18 @@
             android:freezesText="true"/>
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Reset"
+        android:onClick="reSetOnClick"
+        app:layout_constraintEnd_toStartOf="@+id/player_two"
+        app:layout_constraintHorizontal_bias="0.892"
+        app:layout_constraintStart_toEndOf="@+id/player_one"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
 </android.support.constraint.ConstraintLayout>

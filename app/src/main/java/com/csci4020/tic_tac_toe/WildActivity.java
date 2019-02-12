@@ -1,318 +1,489 @@
 package com.csci4020.tic_tac_toe;
+/*
+CSCI 4020
+Assignment 1
+Han Kim
+Brian Lake
+ */
 
 import android.app.Activity;
-import android.graphics.Typeface;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class WildActivity extends Activity implements View.OnClickListener{
-    private int currentPiece = R.drawable.letter_x, currentPlayer = 0, piecesPlaced = 0;
-    private boolean[] gameBoardFlags = new boolean[36];
-    private boolean gameOver = false;
-    private int[][] gameBoardSquares = new int[6][6];
-    private int Col2DIndex = -1;
-    private int Row2DIndex = -1;
+public class WildActivity extends Activity
+		implements View.OnClickListener
+{
+	// Global variables
+	SharedPreferences sharedPreferences;
+	private ImageButton[][] imageButtons = new ImageButton[3][3];
+	// counts the # of rounds. If round gets more than 9, which is the max, we know it's a draw
+	private int roundCount;
+	private boolean player1Turn = true;
 
-    public int[] gameIds = {
-            R.id.imageButton00, R.id.imageButton01, R.id.imageButton02, R.id.imageButton03,
-            R.id.imageButton04, R.id.imageButton05, R.id.imageButton10, R.id.imageButton11,
-            R.id.imageButton12, R.id.imageButton13, R.id.imageButton14, R.id.imageButton15,
-            R.id.imageButton20, R.id.imageButton21, R.id.imageButton22, R.id.imageButton23,
-            R.id.imageButton24, R.id.imageButton25, R.id.imageButton30, R.id.imageButton31,
-            R.id.imageButton32, R.id.imageButton33, R.id.imageButton34, R.id.imageButton35,
-            R.id.imageButton40, R.id.imageButton41, R.id.imageButton42, R.id.imageButton43,
-            R.id.imageButton44, R.id.imageButton45, R.id.imageButton50, R.id.imageButton51,
-            R.id.imageButton52, R.id.imageButton53, R.id.imageButton54, R.id.imageButton55
-    };
+	private int player1Points;
+	private int player2Points;
 
-    public int[][] game2DArrayIds = {
-            {R.id.imageButton00, R.id.imageButton01, R.id.imageButton02, R.id.imageButton03, R.id.imageButton04, R.id.imageButton05},
-            {R.id.imageButton10, R.id.imageButton11, R.id.imageButton12, R.id.imageButton13, R.id.imageButton14, R.id.imageButton15},
-            {R.id.imageButton20, R.id.imageButton21, R.id.imageButton22, R.id.imageButton23, R.id.imageButton24, R.id.imageButton25},
-            {R.id.imageButton30, R.id.imageButton31, R.id.imageButton32, R.id.imageButton33, R.id.imageButton34, R.id.imageButton35},
-            {R.id.imageButton40, R.id.imageButton41, R.id.imageButton42, R.id.imageButton43, R.id.imageButton44, R.id.imageButton45},
-            {R.id.imageButton50, R.id.imageButton51, R.id.imageButton52, R.id.imageButton53, R.id.imageButton54, R.id.imageButton55}
-    };
+	private TextView textViewPlayer1;
+	private TextView textViewPlayer2;
+	//---------------------------------------------
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wild);
+	@Override
+	protected void onCreate(Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_wild);
 
-        // set up all the listeners for the buttons
-        setupButtonListener();
-
-        for(int i = 0; i < gameBoardFlags.length; i++){
-            gameBoardFlags[i] = false;
-        }
-
-        for(int i = 0; i < game2DArrayIds.length; i++){ // col
-            for(int j = 0; j < game2DArrayIds[i].length; j++){ //row
-                gameBoardSquares[i][j] = R.drawable.white_square;
-            }
-        }
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.btn_x:
-                currentPiece = R.drawable.letter_x;
-                ((ImageButton) findViewById(R.id.btn_x)).setBackgroundResource(R.drawable.white_button_black_border);
-                ((ImageButton) findViewById(R.id.btn_o)).setBackgroundResource(R.drawable.white_button_no_black_border);
-                break;
-            case R.id.btn_o:
-                currentPiece = R.drawable.letter_o;
-                ((ImageButton) findViewById(R.id.btn_x)).setBackgroundResource(R.drawable.white_button_no_black_border);
-                ((ImageButton) findViewById(R.id.btn_o)).setBackgroundResource(R.drawable.white_button_black_border);
-                break;
-            case R.id.imageButton00: case R.id.imageButton01: case R.id.imageButton02:
-            case R.id.imageButton03: case R.id.imageButton04: case R.id.imageButton05:
-            case R.id.imageButton10: case R.id.imageButton11: case R.id.imageButton12:
-            case R.id.imageButton13: case R.id.imageButton14: case R.id.imageButton15:
-            case R.id.imageButton20: case R.id.imageButton21: case R.id.imageButton22:
-            case R.id.imageButton23: case R.id.imageButton24: case R.id.imageButton25:
-            case R.id.imageButton30: case R.id.imageButton31: case R.id.imageButton32:
-            case R.id.imageButton33: case R.id.imageButton34: case R.id.imageButton35:
-            case R.id.imageButton40: case R.id.imageButton41: case R.id.imageButton42:
-            case R.id.imageButton43: case R.id.imageButton44: case R.id.imageButton45:
-            case R.id.imageButton50: case R.id.imageButton51: case R.id.imageButton52:
-            case R.id.imageButton53: case R.id.imageButton54: case R.id.imageButton55:
-                placeGamePiece(view.getId());
-                break;
-            default:
-                Toast.makeText(getApplicationContext(),"Invalid view Id ",Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    public void setupButtonListener(){
-        int[] ids = {
-                R.id.btn_x, R.id.btn_o, R.id.imageButton00, R.id.imageButton01, R.id.imageButton02,
-                R.id.imageButton03, R.id.imageButton04, R.id.imageButton05, R.id.imageButton10,
-                R.id.imageButton11, R.id.imageButton12, R.id.imageButton13, R.id.imageButton14,
-                R.id.imageButton15, R.id.imageButton20, R.id.imageButton21, R.id.imageButton22,
-                R.id.imageButton23, R.id.imageButton24, R.id.imageButton25, R.id.imageButton30,
-                R.id.imageButton31, R.id.imageButton32, R.id.imageButton33, R.id.imageButton34,
-                R.id.imageButton35, R.id.imageButton40, R.id.imageButton41, R.id.imageButton42,
-                R.id.imageButton43, R.id.imageButton44, R.id.imageButton45, R.id.imageButton50,
-                R.id.imageButton51, R.id.imageButton52, R.id.imageButton53, R.id.imageButton54,
-                R.id.imageButton55
-        };
-        for(int i = 0; i < ids.length; i++){
-            ((ImageButton) findViewById(ids[i])).setOnClickListener(this);
-        }
-    }
-
-    public void placeGamePiece(int id){
-        int imageButtonIndex = findIndexOfId(id);
-
-        if(imageButtonIndex != -1){
-            gameBoardFlags[imageButtonIndex] = true;
-        }
+		// Need a way to restore state of moves. Shared Preferences seems to be ok
+		sharedPreferences = this.getSharedPreferences("tictactoewild", Context.MODE_PRIVATE);
+		// Restore current player or pick player A for first move.
+		if (sharedPreferences.contains("isPlayer1Turn"))
+		{
+			if (sharedPreferences.getBoolean("isPlayer1Turn", true))
+			{
+				choosePlayer(clsGamePiece.PLAYER_A);
+			}
+			else
+			{
+				choosePlayer(clsGamePiece.PLAYER_B);
+			}
+		}
+		textViewPlayer1 = findViewById(R.id.text_view_p1);
+		textViewPlayer2 = findViewById(R.id.text_view_p2);
 
 
-        // get the col and row
-        get2DIndex(id);
+		// loop through our rows and columns of imageButtons
+		for (int r = 0; r < 3; r++)
+		{
+			for (int c = 0; c < 3; c++)
+			{
+				String buttonID = "button_" + r + c;
 
-        // don't continue if there's no white square
-        if(gameBoardSquares[Col2DIndex][Row2DIndex] != R.drawable.white_square) {
-            return;
-        }
+				// set click listeners on the imageButtons
+				int resId = getResources().getIdentifier(buttonID, "id", getPackageName());
+				imageButtons[r][c] = findViewById(resId);
+				imageButtons[r][c].setOnClickListener(this);
+				// Attempt to restore state if changes were made
+				if (sharedPreferences.getBoolean(resId + "_isPlayed", false))
+				{
+					// Retrieve state objects. Error handle by using default null values (odd case)
+					imageButtons[r][c].setImageResource(sharedPreferences.getInt(resId + "_image", R.drawable.ic_gamepiece_placeholder));
+					imageButtons[r][c].setTag(sharedPreferences.getString(resId + "_tag", ""));
+				}
+			}
+		}
 
-        // don't continue if game is over
-        if(gameOver){
-            Toast.makeText(getApplicationContext(),"Press the back button to start another game",Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        ((ImageButton) findViewById(id)).setImageResource(currentPiece);
-
-        // the current piece's column and row
-        gameBoardSquares[Col2DIndex][Row2DIndex] = currentPiece;
-
-        int consecutivePieces = 1;
-        int pastImage = -1;
-
-        // iterate through each row of the 2D column index
-        for(int i = 0; i < gameBoardSquares.length; i++){
-            if (gameBoardSquares[Col2DIndex][i] == pastImage && gameBoardSquares[Col2DIndex][i] == currentPiece){
-                consecutivePieces++;
-            } else {
-                consecutivePieces = 1;
-            }
-
-            pastImage = gameBoardSquares[Col2DIndex][i];
-
-            if (consecutivePieces == 5){
-                // game over
-                endGame("Order");
-            }
-        }
-
-        consecutivePieces = 1;
-        pastImage = -1;
-
-        // iterate through each row of the 2D row index
-        for(int i = 0; i < gameBoardSquares.length; i++){
-            if (gameBoardSquares[i][Row2DIndex] == pastImage && gameBoardSquares[i][Row2DIndex] == currentPiece){
-                consecutivePieces++;
-            } else {
-                consecutivePieces = 1;
-            }
-
-            pastImage = gameBoardSquares[i][Row2DIndex];
-
-            if (consecutivePieces == 5){
-                // we have a winner
-                endGame("Order");
-            }
-        }
+		Button buttonReset = findViewById(R.id.button_reset);
+		buttonReset.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				resetGame();
+			}
+		});
 
 
-        // Diagonal
-        consecutivePieces = 1;
-        pastImage = -1;
+	}
 
-        // starts top left
-        if ( (Col2DIndex - Row2DIndex) == 1){
-            // Top
-            for (int i = 0; i < game2DArrayIds.length-1; i++){
-                if (gameBoardSquares[i+1][i] == pastImage && gameBoardSquares[i+1][i] == currentPiece){
-                    consecutivePieces++;
-                } else {
-                    consecutivePieces = 1;
-                }
-                pastImage = gameBoardSquares[i+1][i];
-                if (consecutivePieces == 5){
-                    // game over
-                    endGame("Order");
-                }
-            }
-        } else if( (Col2DIndex - Row2DIndex) == 0){
-            // Middle
-            for (int i = 0; i < game2DArrayIds.length; i++){
-                if (gameBoardSquares[i][i] == pastImage && gameBoardSquares[i][i] == currentPiece){
-                    consecutivePieces++;
-                } else {
-                    consecutivePieces = 1;
-                }
-                pastImage = gameBoardSquares[i][i];
-                if (consecutivePieces == 5){
-                    // game over
-                    endGame("Order");
-                }
-            }
-        } else if ( (Col2DIndex - Row2DIndex) == -1){
-            // Bottom
-            for (int i = 0; i < game2DArrayIds.length-1; i++){
-                if (gameBoardSquares[i][i+1] == pastImage && gameBoardSquares[i][i+1] == currentPiece){
-                    consecutivePieces++;
-                } else {
-                    consecutivePieces = 1;
-                }
-                pastImage = gameBoardSquares[i][i+1];
-                if (consecutivePieces == 5){
-                    // game over
-                    endGame("Order");
-                }
-            }
-        }
 
-        consecutivePieces = 1;
-        pastImage = -1;
+	/**
+	 * Open activity to let user choose which piece to play.
+	 * Logic after choice is made
+	 *
+	 * @param v Chosen piece location
+	 */
+	@Override
+	public void onClick(View v)
+	{
+		// checks if button has already been used
+		if (!(v).getTag().equals(""))
+		{
+			return;
+		}
 
-        // starts top right
-        if( (Col2DIndex + Row2DIndex) == 4){
-            // Top
-            for (int i = 0, k = game2DArrayIds.length-2; i < game2DArrayIds.length-1; i++,k--){
-                if(gameBoardSquares[k][i] != currentPiece){
-                    break;
-                }
-                if(i == game2DArrayIds.length-2){
-                    // game over
-                    endGame("Order");
-                }
-            }
-        } else if ( (Col2DIndex + Row2DIndex) == 5){
-            // Middle
-            for (int i = 0, k = game2DArrayIds.length-1; i < game2DArrayIds.length; i++,k--){
-                if (gameBoardSquares[k][i] == pastImage && gameBoardSquares[k][i] == currentPiece){
-                    consecutivePieces++;
-                } else {
-                    consecutivePieces = 1;
-                }
-                pastImage = gameBoardSquares[k][i];
-                if (consecutivePieces == 5){
-                    // game over
-                    endGame("Order");
-                }
-            }
-        } else if ( (Col2DIndex + Row2DIndex) == 6){
-            // Bottom
-            for (int i = 0, k = game2DArrayIds.length-1; i < game2DArrayIds.length-1; i++,k--){
-                if(gameBoardSquares[k][i+1] != currentPiece){
-                    break;
-                }
-                if(i == game2DArrayIds.length-2){
-                    // game over
-                    endGame("Order");
-                }
-            }
-        }
-        piecesPlaced++;
-        switchPlayers();
-        // if board is completely filled with pieces
-        if(allPiecesUsed()) {
-            endGame("Chaos");
-        }
-    }
+		// if it's player one's turn and they click a button, give the button a text of X or O
+		// Also store the change to preferences for state restore
+		if (player1Turn)
+		{
+			// Result from choosepiece activity should be similar to "A|O"
+			choosePieceActivity(clsGamePiece.PLAYER_A, v.getId());
+		}
+		else
+		{
+			// Result from choosepiece activity should be similar to "A|O"
+			choosePieceActivity(clsGamePiece.PLAYER_B, v.getId());
+		}
+	}
 
-    // if no more pieces can be used
-    public boolean allPiecesUsed(){
-        return piecesPlaced >= 36;
-    }
+	/**
+	 * Start activity to let user pick which piece to play
+	 *
+	 * @param currentPlayer int
+	 */
+	private void choosePieceActivity(int currentPlayer, int viewId)
+	{
+		Intent intent = new Intent(getApplicationContext(), ChoosePieceActivity.class);
+		intent.putExtra("currentPlayer", currentPlayer);
+		// Use sharedpreferences to remember the view that was pressed
+		sharedPreferences.edit().putInt("view", viewId).apply();
+		startActivityForResult(intent, 0);
+	}
 
-    // game over
-    public void endGame(String winner){
-        gameOver = true;
-        Toast.makeText(getApplicationContext(),winner + " is the winner!",Toast.LENGTH_SHORT).show();
-    }
+	/**
+	 * Process the returned information from choosepiece activity
+	 *
+	 * @param requestCode
+	 * @param resultCode
+	 * @param data
+	 */
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		if (resultCode == RESULT_OK)
+		{
+			if (!data.hasExtra("tag"))
+				Log.i("====", "Some how a choice wasn't made but the result returned ok");
+			else
+			{
+				sharedPreferences = this.getSharedPreferences("tictactoewild", Context.MODE_PRIVATE);
+				if (sharedPreferences.contains("view"))
+				{
+					// Get ImageView placeholder
+					ImageView imageView = findViewById(sharedPreferences.getInt("view", 0));
 
-    public int findIndexOfId(int id){
-        for(int i = 0; i < gameIds.length; i++){
-            if(gameIds[i] == id){
-                return i;
-            }
-        }
-        return -1;
-    }
+					// Begin marking the placeholder as played, appropriately
+					imageView.setTag(data.getStringExtra("tag"));
 
-    public void get2DIndex(int id){
-        for(int i = 0; i < game2DArrayIds.length; i++){ // col
-            for(int j = 0; j < game2DArrayIds[i].length; j++){ //row
-                if(game2DArrayIds[i][j] == id){
-                    Col2DIndex = i;
-                    Row2DIndex = j;
-                    return;
-                }
-            }
-        }
-    }
+					// Update the placeholder with the proper piece that was chosen
+					// Split to String array.
+					// [0] = ""
+					// [1] = Player
+					// [2] = |
+					// [3] = Piece
+					String[] resultStringArray = imageView.getTag().toString().split("|");
+					if (player1Turn)
+					{
+						if (resultStringArray[3].equals("X"))
+						{
+							imageView.setImageResource(R.drawable.ic_gamepiece_x_blue);
+							// Store the played piece in case screen is rotated
+							storePlayedPieceInPreferences(R.drawable.ic_gamepiece_x_blue, imageView.getTag().toString(), imageView);
+						}
+						else
+						{
+							imageView.setImageResource(R.drawable.ic_gamepiece_o_blue);
+							storePlayedPieceInPreferences(R.drawable.ic_gamepiece_o_blue, imageView.getTag().toString(), imageView);
+						}
+					}
+					else
+					{
+						if (resultStringArray[3].equals("X"))
+						{
+							imageView.setImageResource(R.drawable.ic_gamepiece_x_red);
+							// Store the played piece in case screen is rotated
+							storePlayedPieceInPreferences(R.drawable.ic_gamepiece_x_red, imageView.getTag().toString(), imageView);
+						}
+						else
+						{
+							imageView.setImageResource(R.drawable.ic_gamepiece_o_red);
+							storePlayedPieceInPreferences(R.drawable.ic_gamepiece_o_red, imageView.getTag().toString(), imageView);
+						}
+					}
 
-    // switches the players for each round by giving the text bold or removing bold
-    public void switchPlayers(){
-        if( currentPlayer == 0 ){
-            currentPlayer = 1;
-            ((TextView) findViewById(R.id.player_chaos)).setTypeface(Typeface.DEFAULT_BOLD);
-            ((TextView) findViewById(R.id.player_order)).setTypeface(Typeface.DEFAULT);
-        } else {
-            currentPlayer = 0;
-            ((TextView) findViewById(R.id.player_order)).setTypeface(Typeface.DEFAULT_BOLD);
-            ((TextView) findViewById(R.id.player_chaos)).setTypeface(Typeface.DEFAULT);
-        }
-    }
+					// Piece was played. Check for a win
+					checkForWin();
+				}
+			}
+		}
+		else
+			Log.i("===", "Result returned other than OK");
+	}
+
+	/**
+	 * Method to begin the process of checking for a win
+	 * This should be called after a user has selected a piece to play
+	 */
+	private void checkForWin()
+	{
+		roundCount++;
+
+		// check who wins the game
+		if (isRoundWon())
+		{
+			if (player1Turn)
+			{
+				markAWin(clsGamePiece.PLAYER_A);
+			}
+			else
+			{
+				markAWin(clsGamePiece.PLAYER_B);
+			}
+			// Clear Preferences
+			sharedPreferences.edit().clear().apply();
+		}
+		else if (roundCount == 9)
+		{
+			// if no one wins and no more rounds left, it's a draw
+			draw();
+			// Clear preferences
+			sharedPreferences.edit().clear().apply();
+		}
+		else
+		{
+			// if no one won and there's no draw, change who's turn it is
+			// Pick next player
+			if (player1Turn)
+				choosePlayer(clsGamePiece.PLAYER_B);
+			else
+				choosePlayer(clsGamePiece.PLAYER_A);
+			sharedPreferences.edit().putBoolean("isPlayer1Turn", player1Turn).apply();
+		}
+	}
+
+	/**
+	 * Check the board to see if either player 1 or player 2 has won
+	 * The color of the pieces don't indicate a win. A win is 3 of the same shape piece
+	 */
+	private boolean isRoundWon()
+	{
+		String[][] field = new String[3][3];
+
+		// loop through all the imageButtons and save the imageButtons text as a string, either X or O
+		for (int i = 0; i < 3; i++)
+		{
+			for (int j = 0; j < 3; j++)
+			{
+				// Extract the piece from the tag
+				String[] temp = imageButtons[i][j].getTag().toString().split("|");
+				// Handle non-played placeholders
+				if (temp.length == 1)
+					field[i][j] = "";
+				else
+					field[i][j] = temp[3];
+			}
+		}
+
+		// checks each row to make sure each field has the same text, either X or O
+		for (int i = 0; i < 3; i++)
+		{
+			if (field[i][0].equals(field[i][1]) && field[i][0].equals(field[i][2])
+					&& !field[i][0].equals(""))
+			{
+				return true;
+			}
+		}
+
+		// checks each column to make sure each field has the same text, either X or O
+		for (int i = 0; i < 3; i++)
+		{
+			if (field[0][i].equals(field[1][i]) && field[0][i].equals(field[2][i])
+					&& !field[0][i].equals(""))
+			{
+				return true;
+			}
+		}
+
+		// checks diagonal from left to right
+		if (field[0][0].equals(field[1][1]) && field[0][0].equals(field[2][2])
+				&& !field[0][0].equals(""))
+		{
+			return true;
+		}
+
+		// checks diagonal from right to left
+		if (field[0][2].equals(field[1][1]) && field[0][2].equals(field[2][0])
+				&& !field[0][2].equals(""))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Easy way of processing a win by a specified player.
+	 *
+	 * @param winningPlayer int Identifying who won the round
+	 * @return boolean indicating success or failure
+	 */
+	private boolean markAWin(int winningPlayer)
+	{
+		try
+		{
+			if (winningPlayer == clsGamePiece.PLAYER_A)
+			{
+				player1Points++;
+				Toast.makeText(this, "Player 1 Wins!", Toast.LENGTH_SHORT).show();
+			}
+			else
+			{
+				player2Points++;
+				Toast.makeText(this, "Player 2 Wins!", Toast.LENGTH_SHORT).show();
+			}
+
+			updatePointsText(); // will update points
+			resetBoard(); // will reset the board
+
+			return true; // Indicate success
+		} catch (Exception e)
+		{
+			return false;
+		}
+	}
+
+
+	/**
+	 * Reset the board when there is a draw
+	 */
+	private void draw()
+	{
+		Toast.makeText(this, "It's a Draw!", Toast.LENGTH_SHORT).show();
+		resetBoard();
+	}
+
+	/**
+	 * Update the TextView to display points of each player
+	 */
+	private void updatePointsText()
+	{
+		textViewPlayer1.setText("Player 1: " + player1Points);
+		textViewPlayer2.setText("Player 2: " + player2Points);
+	}
+
+	/**
+	 * Resets the board so players can play a new game
+	 */
+	private void resetBoard()
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			for (int j = 0; j < 3; j++)
+			{
+				imageButtons[i][j].setTag("");
+				imageButtons[i][j].setImageResource(0);
+			}
+		}
+
+		roundCount = 0;
+
+		// Reset preferences for sureity sake
+		sharedPreferences.edit().clear().apply();
+
+		// Reset Player
+		choosePlayer(clsGamePiece.PLAYER_A);
+	}
+
+	/**
+	 * Resets points of the players, updates the TextView of the points, and resets the board
+	 */
+	private void resetGame()
+	{
+		// reset game and points
+		player1Points = 0;
+		player2Points = 0;
+		updatePointsText();
+		resetBoard();
+	}
+
+	/**
+	 * Saves the state of our variables so it's not affected when orientation changes
+	 */
+	@Override
+	protected void onSaveInstanceState(Bundle outState)
+	{
+		super.onSaveInstanceState(outState);
+
+		outState.putInt("roundCount", roundCount);
+		outState.putInt("player1Points", player1Points);
+		outState.putInt("player2Points", player2Points);
+		outState.putBoolean("player1Turn", player1Turn);
+	}
+
+	/**
+	 * Reaches the values from onSaveInstanceState
+	 */
+	@Override
+	protected void onRestoreInstanceState(Bundle savedInstanceState)
+	{
+		super.onRestoreInstanceState(savedInstanceState);
+
+		roundCount = savedInstanceState.getInt("roundCount");
+		player1Points = savedInstanceState.getInt("player1Points");
+		player2Points = savedInstanceState.getInt("player2Points");
+		player1Turn = savedInstanceState.getBoolean("player1Turn");
+	}
+
+	/**
+	 * Simply the process of choosing / changing the current player
+	 *
+	 * @param player int representing which player to choose (e.g. clsGamePiece.PLAYER_A
+	 * @return boolean indicating success or not
+	 */
+	private boolean choosePlayer(int player)
+	{
+		switch (player)
+		{
+			case clsGamePiece.PLAYER_A:
+				((ImageView) findViewById(R.id.image_view_currentPlayer)).setImageResource(R.drawable.ic_gamepiece_x_blue);
+				player1Turn = true;
+				return true;
+			case clsGamePiece.PLAYER_B:
+				((ImageView) findViewById(R.id.image_view_currentPlayer)).setImageResource(R.drawable.ic_gamepiece_o_red);
+				player1Turn = false;
+				return true;
+			default:
+				return false;
+		}
+	}
+
+	/**
+	 * Overloaded chooseplayer method. Set player_A as current player
+	 *
+	 * @return boolean indicating success or not
+	 */
+	private boolean choosePlayer()
+	{
+		try
+		{
+			((ImageView) findViewById(R.id.image_view_currentPlayer)).setImageResource(R.drawable.ic_gamepiece_x_blue);
+			player1Turn = true;
+			return true;
+		} catch (Exception e)
+		{
+			return false;
+		}
+	}
+
+	/**
+	 * Store a played piece into sharedpreferences. This restores the board
+	 * if the activity is paused for any reason
+	 *
+	 * @param image int drawable piece
+	 * @param tag   string tag
+	 * @param v     view to get the imageview id
+	 * @return boolean indicating success or not.
+	 */
+	private boolean storePlayedPieceInPreferences(int image, String tag, View v)
+	{
+		try
+		{
+			sharedPreferences.edit().putString(v.getId() + "_tag", tag).apply();
+			sharedPreferences.edit().putInt(v.getId() + "_image", image).apply();
+			sharedPreferences.edit().putBoolean(v.getId() + "_isPlayed", true).apply();
+			return true;
+		} catch (Exception e)
+		{
+			return false;
+		}
+	}
+
 }

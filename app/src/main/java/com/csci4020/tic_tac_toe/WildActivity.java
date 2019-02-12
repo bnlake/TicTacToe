@@ -116,81 +116,11 @@ public class WildActivity extends Activity
 		{
 			// Result from choosepiece activity should be similar to "A|O"
 			choosePieceActivity(clsGamePiece.PLAYER_A, v.getId());
-			// Split to String array.
-			// [0] = Player
-			// [1] = Piece
-//TODO DISCOVERED A RUN OFF. THE ONACTIVITYRESULT WILL HAVE TO PROCESS ALL OF THE FOLLOWING CODE
-/*
-			String[] resultStringArray = v.getTag().toString().split("|");
-			//
-			if (resultStringArray[1].equals("X"))
-			{
-				((ImageView) v).setImageResource(R.drawable.ic_gamepiece_x_blue);
-				// Store the played piece in case screen is rotated
-				storePlayedPiece(R.drawable.ic_gamepiece_x_blue, v.getTag().toString(), v);
-			}
-			else
-			{
-				((ImageView) v).setImageResource(R.drawable.ic_gamepiece_o_blue);
-				storePlayedPiece(R.drawable.ic_gamepiece_o_blue, v.getTag().toString(), v);
-			}
-*/
 		}
 		else
 		{
 			// Result from choosepiece activity should be similar to "A|O"
 			choosePieceActivity(clsGamePiece.PLAYER_B, v.getId());
-			// Split to String array.
-			// [0] = Player
-			// [1] = Piece
-//TODO SEE ABOVE IF STATEMENT. DEAL WITH RUNOFF
-			String[] resultStringArray = v.getTag().toString().split("|");
-			//
-			if (resultStringArray[1].equals("X"))
-			{
-				((ImageView) v).setImageResource(R.drawable.ic_gamepiece_x_red);
-				// Store the played piece in case screen is rotated
-				storePlayedPiece(R.drawable.ic_gamepiece_x_red, v.getTag().toString(), v);
-			}
-			else
-			{
-				((ImageView) v).setImageResource(R.drawable.ic_gamepiece_o_red);
-				storePlayedPiece(R.drawable.ic_gamepiece_o_red, v.getTag().toString(), v);
-			}
-		}
-
-		roundCount++;
-
-		// check who wins the game
-		if (isRoundWon())
-		{
-			if (player1Turn)
-			{
-				player1Wins();
-			}
-			else
-			{
-				player2Wins();
-			}
-			// Clear Preferences
-			sharedPreferences.edit().clear().apply();
-		}
-		else if (roundCount == 9)
-		{
-			// if no one wins and no more rounds left, it's a draw
-			draw();
-			// Clear preferences
-			sharedPreferences.edit().clear().apply();
-		}
-		else
-		{
-			// if no one won and there's no draw, change who's turn it is
-			// Pick next player
-			if (player1Turn)
-				choosePlayer(clsGamePiece.PLAYER_B);
-			else
-				choosePlayer(clsGamePiece.PLAYER_A);
-			sharedPreferences.edit().putBoolean("isPlayer1Turn", player1Turn).apply();
 		}
 	}
 
@@ -225,10 +155,50 @@ public class WildActivity extends Activity
 			else
 			{
 				if (sharedPreferences.contains("view"))
-					((ImageView) findViewById(sharedPreferences.getInt("view", 0))).setTag(data.getStringExtra("tag"));
+				{
+					// Get ImageView placeholder
+					ImageView imageView = findViewById(sharedPreferences.getInt("view", 0));
 
-				// Piece was played. Check for a win
-				checkForWin();
+					// Begin marking the placeholder as played, appropriately
+					imageView.setTag(data.getStringExtra("tag"));
+
+					// Update the placeholder with the proper piece that was chosen
+					// Split to String array.
+					// [0] = Player
+					// [1] = Piece
+					String[] resultStringArray = imageView.getTag().toString().split("|");
+					if (player1Turn)
+					{
+						if (resultStringArray[1].equals("X"))
+						{
+							imageView.setImageResource(R.drawable.ic_gamepiece_x_blue);
+							// Store the played piece in case screen is rotated
+							storePlayedPieceInPreferences(R.drawable.ic_gamepiece_x_blue, imageView.getTag().toString(), imageView);
+						}
+						else
+						{
+							imageView.setImageResource(R.drawable.ic_gamepiece_o_blue);
+							storePlayedPieceInPreferences(R.drawable.ic_gamepiece_o_blue, imageView.getTag().toString(), imageView);
+						}
+					}
+					else
+					{
+						if (resultStringArray[1].equals("X"))
+						{
+							imageView.setImageResource(R.drawable.ic_gamepiece_x_red);
+							// Store the played piece in case screen is rotated
+							storePlayedPieceInPreferences(R.drawable.ic_gamepiece_x_red, imageView.getTag().toString(), imageView);
+						}
+						else
+						{
+							imageView.setImageResource(R.drawable.ic_gamepiece_o_red);
+							storePlayedPieceInPreferences(R.drawable.ic_gamepiece_o_red, imageView.getTag().toString(), imageView);
+						}
+					}
+
+					// Piece was played. Check for a win
+					checkForWin();
+				}
 			}
 		}
 		else
@@ -238,10 +208,8 @@ public class WildActivity extends Activity
 	/**
 	 * Method to begin the process of checking for a win
 	 * This should be called after a user has selected a piece to play
-	 *
-	 * @return boolean indicating success of method
 	 */
-	private boolean checkForWin()
+	private void checkForWin()
 	{
 		roundCount++;
 
@@ -250,11 +218,11 @@ public class WildActivity extends Activity
 		{
 			if (player1Turn)
 			{
-				player1Wins();
+				markAWin(clsGamePiece.PLAYER_A);
 			}
 			else
 			{
-				player2Wins();
+				markAWin(clsGamePiece.PLAYER_B);
 			}
 			// Clear Preferences
 			sharedPreferences.edit().clear().apply();
@@ -336,6 +304,7 @@ public class WildActivity extends Activity
 
 	/**
 	 * Easy way of processing a win by a specified player.
+	 *
 	 * @param winningPlayer int Identifying who won the round
 	 * @return boolean indicating success or failure
 	 */
@@ -496,7 +465,7 @@ public class WildActivity extends Activity
 	 * @param v     view to get the imageview id
 	 * @return boolean indicating success or not.
 	 */
-	private boolean storePlayedPiece(int image, String tag, View v)
+	private boolean storePlayedPieceInPreferences(int image, String tag, View v)
 	{
 		try
 		{

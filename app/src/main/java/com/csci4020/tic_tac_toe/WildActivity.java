@@ -162,7 +162,7 @@ public class WildActivity extends Activity
 		roundCount++;
 
 		// check who wins the game
-		if (checkForWin())
+		if (isRoundWon())
 		{
 			if (player1Turn)
 			{
@@ -210,6 +210,7 @@ public class WildActivity extends Activity
 
 	/**
 	 * Process the returned information from choosepiece activity
+	 *
 	 * @param requestCode
 	 * @param resultCode
 	 * @param data
@@ -225,6 +226,9 @@ public class WildActivity extends Activity
 			{
 				if (sharedPreferences.contains("view"))
 					((ImageView) findViewById(sharedPreferences.getInt("view", 0))).setTag(data.getStringExtra("tag"));
+
+				// Piece was played. Check for a win
+				checkForWin();
 			}
 		}
 		else
@@ -232,10 +236,53 @@ public class WildActivity extends Activity
 	}
 
 	/**
+	 * Method to begin the process of checking for a win
+	 * This should be called after a user has selected a piece to play
+	 *
+	 * @return boolean indicating success of method
+	 */
+	private boolean checkForWin()
+	{
+		roundCount++;
+
+		// check who wins the game
+		if (isRoundWon())
+		{
+			if (player1Turn)
+			{
+				player1Wins();
+			}
+			else
+			{
+				player2Wins();
+			}
+			// Clear Preferences
+			sharedPreferences.edit().clear().apply();
+		}
+		else if (roundCount == 9)
+		{
+			// if no one wins and no more rounds left, it's a draw
+			draw();
+			// Clear preferences
+			sharedPreferences.edit().clear().apply();
+		}
+		else
+		{
+			// if no one won and there's no draw, change who's turn it is
+			// Pick next player
+			if (player1Turn)
+				choosePlayer(clsGamePiece.PLAYER_B);
+			else
+				choosePlayer(clsGamePiece.PLAYER_A);
+			sharedPreferences.edit().putBoolean("isPlayer1Turn", player1Turn).apply();
+		}
+	}
+
+	/**
 	 * Check the board to see if either player 1 or player 2 has won
 	 * The color of the pieces don't indicate a win. A win is 3 of the same shape piece
 	 */
-	private boolean checkForWin()
+	private boolean isRoundWon()
 	{
 		String[][] field = new String[3][3];
 
@@ -288,26 +335,35 @@ public class WildActivity extends Activity
 	}
 
 	/**
-	 * When player 1 wins, increment their points, display message, update the points text, and reset the board
+	 * Easy way of processing a win by a specified player.
+	 * @param winningPlayer int Identifying who won the round
+	 * @return boolean indicating success or failure
 	 */
-	private void player1Wins()
+	private boolean markAWin(int winningPlayer)
 	{
-		player1Points++;
-		Toast.makeText(this, "Player 1 Wins!", Toast.LENGTH_SHORT).show();
-		updatePointsText(); // will update points
-		resetBoard(); // will reset the board
+		try
+		{
+			if (winningPlayer == clsGamePiece.PLAYER_A)
+			{
+				player1Points++;
+				Toast.makeText(this, "Player 1 Wins!", Toast.LENGTH_SHORT).show();
+			}
+			else
+			{
+				player2Points++;
+				Toast.makeText(this, "Player 2 Wins!", Toast.LENGTH_SHORT).show();
+			}
+
+			updatePointsText(); // will update points
+			resetBoard(); // will reset the board
+
+			return true; // Indicate success
+		} catch (Exception e)
+		{
+			return false;
+		}
 	}
 
-	/**
-	 * When player 2 wins, increment their points, display message, update the points text, and reset the board
-	 */
-	private void player2Wins()
-	{
-		player2Points++;
-		Toast.makeText(this, "Player 2 Wins!", Toast.LENGTH_SHORT).show();
-		updatePointsText(); // will update points
-		resetBoard(); // will reset the board
-	}
 
 	/**
 	 * Reset the board when there is a draw

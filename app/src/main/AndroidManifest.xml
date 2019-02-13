@@ -21,6 +21,7 @@
         <activity android:name=".RandomActivity"/>
         <activity android:name=".WildActivity"/>
         <activity android:name=".ChoosePieceActivity"/>
+        <activity android:name=".WildDescriptionActivity"/>
     </application>
 
 </manifest>

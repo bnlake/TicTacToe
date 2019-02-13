@@ -91,7 +91,15 @@ public class WildActivity extends Activity
 			}
 		});
 
-
+		Button buttonRules = findViewById(R.id.button_rules);
+		buttonRules.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				displayDescription();
+			}
+		});
 	}
 
 
@@ -484,6 +492,14 @@ public class WildActivity extends Activity
 		{
 			return false;
 		}
+	}
+
+	private void displayDescription() {
+		Intent intent = new Intent(getApplicationContext(), WildDescriptionActivity.class);
+//		intent.putExtra("currentPlayer", currentPlayer);
+		// Use sharedpreferences to remember the view that was pressed
+//		sharedPreferences.edit().putInt("view", viewId).apply();
+		startActivityForResult(intent, 0);
 	}
 
 }

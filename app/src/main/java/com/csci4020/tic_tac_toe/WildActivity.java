@@ -454,24 +454,6 @@ public class WildActivity extends Activity
 	}
 
 	/**
-	 * Overloaded chooseplayer method. Set player_A as current player
-	 *
-	 * @return boolean indicating success or not
-	 */
-	private boolean choosePlayer()
-	{
-		try
-		{
-			((ImageView) findViewById(R.id.image_view_currentPlayer)).setImageResource(R.drawable.ic_gamepiece_x_blue);
-			player1Turn = true;
-			return true;
-		} catch (Exception e)
-		{
-			return false;
-		}
-	}
-
-	/**
 	 * Store a played piece into sharedpreferences. This restores the board
 	 * if the activity is paused for any reason
 	 *
@@ -494,12 +476,13 @@ public class WildActivity extends Activity
 		}
 	}
 
-	private void displayDescription() {
+	/**
+	 * Display the rules of the game
+	 */
+	private void displayDescription()
+	{
 		Intent intent = new Intent(getApplicationContext(), WildDescriptionActivity.class);
-//		intent.putExtra("currentPlayer", currentPlayer);
-		// Use sharedpreferences to remember the view that was pressed
-//		sharedPreferences.edit().putInt("view", viewId).apply();
-		startActivityForResult(intent, 0);
+		startActivity(intent);
 	}
 
 }

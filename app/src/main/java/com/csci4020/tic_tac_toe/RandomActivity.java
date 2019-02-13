@@ -43,7 +43,7 @@ public class RandomActivity extends Activity implements View.OnClickListener
 		// Restore current player or pick random player for first move.
 		if (sharedPreferences.contains("isPlayer1Turn"))
 		{
-			if (sharedPreferences.getBoolean("isPlayer1Turn",false))
+			if (sharedPreferences.getBoolean("isPlayer1Turn", false))
 			{
 				player1Turn = true;
 				((TextView) findViewById(R.id.text_view_currentPlayer)).setText("Current Player: X");
@@ -61,7 +61,6 @@ public class RandomActivity extends Activity implements View.OnClickListener
 		textViewPlayer2 = findViewById(R.id.text_view_p2);
 
 
-
 		// loop through our rows and columns of imageButtons
 		for (int r = 0; r < 3; r++)
 		{
@@ -74,11 +73,11 @@ public class RandomActivity extends Activity implements View.OnClickListener
 				imageButtons[r][c] = findViewById(resId);
 				imageButtons[r][c].setOnClickListener(this);
 				// Attempt to restore state if changes were made
-				if (sharedPreferences.getBoolean(resId + "_isPlayed",false))
+				if (sharedPreferences.getBoolean(resId + "_isPlayed", false))
 				{
 					// Retrieve state objects. Error handle by using default null values (odd case)
-					imageButtons[r][c].setImageResource(sharedPreferences.getInt(resId + "_image",R.drawable.ic_gamepiece_placeholder));
-					imageButtons[r][c].setTag(sharedPreferences.getString(resId + "_tag",""));
+					imageButtons[r][c].setImageResource(sharedPreferences.getInt(resId + "_image", R.drawable.ic_gamepiece_placeholder));
+					imageButtons[r][c].setTag(sharedPreferences.getString(resId + "_tag", ""));
 				}
 			}
 		}
@@ -130,18 +129,18 @@ public class RandomActivity extends Activity implements View.OnClickListener
 		if (player1Turn)
 		{
 			(v).setTag("X");
-			sharedPreferences.edit().putString(v.getId() + "_tag","X").apply();
+			sharedPreferences.edit().putString(v.getId() + "_tag", "X").apply();
 			((ImageButton) v).setImageResource(R.drawable.ic_gamepiece_x_red);
-			sharedPreferences.edit().putInt(v.getId() + "_image",R.drawable.ic_gamepiece_x_red).apply();
-			sharedPreferences.edit().putBoolean(v.getId() + "_isPlayed",true).apply();
+			sharedPreferences.edit().putInt(v.getId() + "_image", R.drawable.ic_gamepiece_x_red).apply();
+			sharedPreferences.edit().putBoolean(v.getId() + "_isPlayed", true).apply();
 		}
 		else
 		{
 			(v).setTag("O");
-			sharedPreferences.edit().putString(v.getId() + "_tag","O").apply();
+			sharedPreferences.edit().putString(v.getId() + "_tag", "O").apply();
 			((ImageButton) v).setImageResource(R.drawable.ic_gamepiece_o_blue);
-			sharedPreferences.edit().putInt(v.getId() + "_image",R.drawable.ic_gamepiece_o_blue).apply();
-			sharedPreferences.edit().putBoolean(v.getId() + "_isPlayed",true).apply();
+			sharedPreferences.edit().putInt(v.getId() + "_image", R.drawable.ic_gamepiece_o_blue).apply();
+			sharedPreferences.edit().putBoolean(v.getId() + "_isPlayed", true).apply();
 		}
 
 		roundCount++;
@@ -172,7 +171,7 @@ public class RandomActivity extends Activity implements View.OnClickListener
 			// if no one won and there's no draw, change who's turn it is
 			// Pick next random player
 			chooseRandomPlayer();
-			sharedPreferences.edit().putBoolean("isPlayer1Turn",player1Turn).apply();
+			sharedPreferences.edit().putBoolean("isPlayer1Turn", player1Turn).apply();
 		}
 	}
 
@@ -345,11 +344,12 @@ public class RandomActivity extends Activity implements View.OnClickListener
 			((TextView) findViewById(R.id.text_view_currentPlayer)).setText("Current Player: O");
 	}
 
-	private void displayDescription() {
+	/**
+	 * Display rules of the game
+	 */
+	private void displayDescription()
+	{
 		Intent intent = new Intent(getApplicationContext(), RandomDescriptionActivity.class);
-//		intent.putExtra("currentPlayer", currentPlayer);
-		// Use sharedpreferences to remember the view that was pressed
-//		sharedPreferences.edit().putInt("view", viewId).apply();
-		startActivityForResult(intent, 0);
+		startActivity(intent);
 	}
 }

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="256dp"
+        android:layout_height="31dp"
+        android:text="Description: "
+        android:textAlignment="center"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="64dp"
+        tools:layout_editor_absoluteY="45dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="267dp"
+        android:layout_height="137dp"
+        android:text="Wild tic-tac-toe is similar to the standard tic-tac-toe. The main difference is when players are alternating turns, they are able to choose either X or O. Just make three in a row with either X or O and win! "
+        android:textAlignment="center"
+        tools:layout_editor_absoluteX="59dp"
+        tools:layout_editor_absoluteY="170dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="172dp"
+        tools:layout_editor_absoluteY="340dp"
+        tools:text="Rules:" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="287dp"
+        android:layout_height="114dp"
+        android:text="TextView"
+        android:textAlignment="viewStart"
+        tools:layout_editor_absoluteX="49dp"
+        tools:layout_editor_absoluteY="372dp"
+        tools:text="1. The game is played on a 3 x 3 grid. \n 2. Player turns will alternate each turn \n 3. The first player to get 3 in a row with either X or O wins. \n 4. If it's your turn, select a square and you'll be able to select either X or O to place." />
+
+</android.support.constraint.ConstraintLayout>

@@ -8,6 +8,7 @@ Brian Lake
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -92,6 +93,23 @@ public class RandomActivity extends Activity implements View.OnClickListener
 			}
 		});
 
+		Button buttonRules = findViewById(R.id.button_rules);
+		buttonRules.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				displayDescription();
+			}
+		});
+//		buttonRules.setOnClickListener(new View.OnClickListener()
+//		{
+//			@Override
+//			public void onClick(View v)
+//			{
+//				displayDescription();
+//			}
+//		});
 
 	}
 
@@ -325,5 +343,13 @@ public class RandomActivity extends Activity implements View.OnClickListener
 			((TextView) findViewById(R.id.text_view_currentPlayer)).setText("Current Player: X");
 		else
 			((TextView) findViewById(R.id.text_view_currentPlayer)).setText("Current Player: O");
+	}
+
+	private void displayDescription() {
+		Intent intent = new Intent(getApplicationContext(), RandomDescriptionActivity.class);
+//		intent.putExtra("currentPlayer", currentPlayer);
+		// Use sharedpreferences to remember the view that was pressed
+//		sharedPreferences.edit().putInt("view", viewId).apply();
+		startActivityForResult(intent, 0);
 	}
 }

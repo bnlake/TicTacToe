@@ -3,6 +3,6 @@
     <color name="colorBackgroundLight">#FBFCF9</color>
     <color name="colorBackgroundDark">#EEF0E6</color>
     <color name="colorWhite">#FFF</color>
-    <color name="colorPrimaryPink">#FFB6B9</color>
-    <color name="colorPrimaryBlue">#90A9CD</color>
+    <color name="colorPrimaryPink">#ffb6b9</color>
+    <color name="colorPrimaryBlue">#90a9cd</color>
 </resources>

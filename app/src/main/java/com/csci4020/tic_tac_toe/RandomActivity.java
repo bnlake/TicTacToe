@@ -101,15 +101,6 @@ public class RandomActivity extends Activity implements View.OnClickListener
 				displayDescription();
 			}
 		});
-//		buttonRules.setOnClickListener(new View.OnClickListener()
-//		{
-//			@Override
-//			public void onClick(View v)
-//			{
-//				displayDescription();
-//			}
-//		});
-
 	}
 
 	/**
